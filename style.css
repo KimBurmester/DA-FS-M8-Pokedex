@@ -1,0 +1,64 @@
+@import url(./styles/header-main-footer.css);
+
+*{
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+html, body{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.f-16-b{
+    font-size: 16px;
+    font-weight: bold;
+}
+.f-16{
+    font-size: 16px;
+}
+
+.f-22-b{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.f-22{
+    font-size: 22px;
+}
+
+.fc-white{
+    color: white;
+}
+
+.fc-black{
+    color: black;
+}
+
+.fc-grey{
+    color:grey;
+}
+
+.box-shadow-top{
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.box-shadow-bottom{
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.bg-light{
+    background-color: rgb(19, 165, 233);
+}
+
+.bg-dark{
+    background-color: rgb(7, 61, 86);
+}
+
+.bg-main{
+    background-color: rgba(81, 155, 189, 0.644);
+}

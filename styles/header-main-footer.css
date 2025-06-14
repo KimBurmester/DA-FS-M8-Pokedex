@@ -1,0 +1,39 @@
+.header-container{
+    display: flex;
+    justify-content: center;
+    height: 80px;
+}
+.header-logo{
+
+}
+.header-text{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.header-menu{
+
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    overflow: auto;
+}
+
+
+.footer-container{
+    display: flex;
+    justify-content: center;
+    height: 80px;
+}
+.footer-logo{
+
+}
+.footer-copyright{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.footer-channels{
+
+}
