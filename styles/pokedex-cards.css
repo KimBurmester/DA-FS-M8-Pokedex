@@ -1,0 +1,22 @@
+.pokedex-cards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: 8px;
+    height: 90%;
+    width: 90%;
+    /* background-color: aqua; */
+    flex-wrap: wrap;
+}
+
+.pokedex-card{
+    display: flex;
+    justify-content: center;
+    height: 350px;
+    width: 350px;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: blueviolet;
+    box-sizing: border-box;
+}
