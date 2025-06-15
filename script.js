@@ -29,7 +29,7 @@
       const container = document.getElementById('pokemon-card');
       container.innerHTML = '';
 
-      const limit = 100;
+      const limit = 40;
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
       const data = await response.json();
 
@@ -37,7 +37,6 @@
         const pokeData = await fetch(pokemon.url).then(res => res.json());
 
         const div = document.createElement('div');
-        div.className = 'pokemon-info';
         div.innerHTML = `
           <div class="pokemon-info"><h3>${pokeData.name.toUpperCase()}</h3>
           <p><strong>ID:</strong> ${pokeData.id}</p>

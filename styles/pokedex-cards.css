@@ -1,4 +1,4 @@
-.pokedex-cards{
+.pokedex-card{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +10,7 @@
     flex-wrap: wrap;
 }
 
-.pokedex-card{
+/* .pokedex-card{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@
     border-radius: 8px;
     background-color: rgb(43, 226, 177);
     box-sizing: border-box;
-}
+} */
 
 .pokemon-info{
     display: flex;
@@ -30,4 +30,8 @@
     align-items: center;
     width: 250px;
     height: 250px;
+    border-radius: 8px;
+    border: 2px solid black;
+    background-color: rgb(219, 237, 246);
+    margin: 15px;
 }
