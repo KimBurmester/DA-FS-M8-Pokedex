@@ -60,10 +60,10 @@ const typeColors = {
         div.className = 'pokemon-info box-shadow-bottom';
         div.style.backgroundColor = color;
         div.innerHTML = `
-          <div><h3>${pokeData.name.toUpperCase()}</h3>
-          <p><strong>ID:</strong> ${pokeData.id}</p>
-          <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
-          <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
+          <div class="pokemon-name"><h3>${pokeData.name.toUpperCase()}</h3>
+          <div class="pokemon-id"><p><strong>ID:</strong> ${pokeData.id}</p></div>
+          <div class="pokemon-picture"><img src="${pokeData.sprites.front_default}" alt="${pokeData.name}"></div>
+          <div class="pokemon-type"><p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p></div>
           </div>
         `;
         container.appendChild(div);
