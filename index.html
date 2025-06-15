@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="./img/favicon/favicon-ball.png" />
     <title>Pokédex</title>
 </head>
-<body>
+<body onload="loadInitialPokemon()">
     <header class="header-container box-shadow-bottom bg-light">
         <div class="header-logo"></div>
         <div class="header-text f-32-b fc-white">Pokédex</div>
@@ -15,8 +15,10 @@
     </header>
 
     <main class="main-container bg-main">
+          <input type="text" id="pokemonName" placeholder="Name eingeben, z. B. pikachu">
+  <!-- <button onclick="loadPokemon()">Suchen</button> -->
         <div class="pokedex-cards">
-            <div class="pokedex-card mg-total box-shadow-bottom"></div>
+            <div id="pokemon-card" class="pokedex-card mg-total box-shadow-bottom"></div>
         </div>
     </main>
 

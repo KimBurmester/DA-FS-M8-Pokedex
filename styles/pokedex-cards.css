@@ -13,10 +13,21 @@
 .pokedex-card{
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     height: 350px;
     width: 350px;
     border: 2px solid black;
     border-radius: 8px;
     background-color: rgb(43, 226, 177);
     box-sizing: border-box;
+}
+
+.pokemon-info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    height: 250px;
 }
