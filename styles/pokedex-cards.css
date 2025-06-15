@@ -6,22 +6,8 @@
     border-radius: 8px;
     height: 90%;
     width: 90%;
-    /* background-color: aqua; */
     flex-wrap: wrap;
 }
-
-/* .pokedex-card{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 350px;
-    width: 350px;
-    border: 2px solid black;
-    border-radius: 8px;
-    background-color: rgb(43, 226, 177);
-    box-sizing: border-box;
-} */
 
 .pokemon-info{
     display: flex;
@@ -31,9 +17,8 @@
     width: 250px;
     height: 250px;
     border-radius: 8px;
-    border: 2px solid black;
-    background-color: rgb(219, 237, 246);
-    margin: 15px;
+    border: 1px solid black;
+    margin: 15px
 }
 
 .pokemon-info:hover{
