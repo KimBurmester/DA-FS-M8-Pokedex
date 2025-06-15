@@ -16,8 +16,11 @@
 .header-text{
 
 }
-.header-menu{
-
+.header-search input{
+    width: 250px;
+    height: 25px;
+    border-radius: 8px;
+    border: none;
 }
 
 .main-container{
