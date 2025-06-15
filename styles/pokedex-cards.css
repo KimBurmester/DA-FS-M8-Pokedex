@@ -4,9 +4,14 @@
     justify-content: center;
     flex-direction: row;
     border-radius: 8px;
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 1440px;
+    margin: 0;
     flex-wrap: wrap;
+}
+
+#pokemon-card div{
+    margin: 15px;
 }
 
 .pokemon-info{
@@ -18,17 +23,17 @@
     height: 250px;
     border-radius: 8px;
     border: 1px solid black;
-    margin: 15px;
+    /* margin: 15px; */
 }
 
 .pokemon-info:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.85);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.8s ease;
 }
 
 .pokemon-name{
-    text-align: center;
+    margin-top: 15px;
 }
 
 .pokemon-id{
@@ -36,7 +41,8 @@
 }
 
 .pokemon-picture{
-
+    height: 100px;
+    width: auto;
 }
 
 .pokemon-type{
