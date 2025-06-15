@@ -18,12 +18,14 @@
     height: 250px;
     border-radius: 8px;
     border: 1px solid black;
-    margin: 15px
+    margin: 15px;
 }
 
-/* #pokemon-card .bg-hover:hover{
-    background-color: rgb(25, 25, 25, 0.3);
-} */
+.pokemon-info:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
 .pokemon-name{
     text-align: center;

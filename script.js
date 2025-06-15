@@ -57,20 +57,19 @@ const typeColors = {
         const type = pokeData.types[0].type.name;
         const color = typeColors[type] || '#F0F0F0';
         const div = document.createElement('div');
-        div.className = 'pokemon-info box-shadow-bottom bg-hover';
+        div.className = 'pokemon-info box-shadow-bottom';
         div.style.backgroundColor = color;
         div.innerHTML = `
-          <div class="pokemon-name"><h3>${pokeData.name.toUpperCase()}</h3>
+          <h3>${pokeData.name.toUpperCase()}</h3>
           <div class="pokemon-id"><p><strong>ID:</strong> ${pokeData.id}</p></div>
           <div class="pokemon-picture"><img src="${pokeData.sprites.front_default}" alt="${pokeData.name}"></div>
           <div class="pokemon-type"><p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p></div>
-          </div>
         `;
         container.appendChild(div);
       }
     }
 /*           <p><strong>Größe:</strong> ${pokeData.height}</p>
-          <p><strong>Gewicht:</strong> ${pokeData.weight}</p> */
+          <p><strong>Gewicht:</strong> ${pokeData.weight}</p><div class="pokemon-name"></div> */
 
 
 
