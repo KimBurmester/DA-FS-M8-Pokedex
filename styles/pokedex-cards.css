@@ -21,9 +21,9 @@
     margin: 15px
 }
 
-.pokemon-info:hover{
+/* #pokemon-card .bg-hover:hover{
     background-color: rgb(25, 25, 25, 0.3);
-}
+} */
 
 .pokemon-name{
     text-align: center;
