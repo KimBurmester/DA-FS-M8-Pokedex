@@ -14,8 +14,7 @@
     align-items: center;
 }
 .header-text{
-    margin-top: 25px;
-    margin-bottom: 25px;
+
 }
 .header-menu{
 
@@ -32,17 +31,41 @@
 
 .footer-container{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
-.footer-logo{
-
+.footer-logo img{
+    width: 50px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .footer-copyright{
-    margin-top: 25px;
-    margin-bottom: 25px;
+
 }
+
+.footer-loading{
+    border-radius: 8px;
+    padding: 15px;
+    background-color: rgb(11, 102, 135);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
 .footer-channels{
 
+}
+
+
+@media (max-width: 520px) {
+    .header-text{
+        display: none;
+    }
+    .footer-copyright{
+        display: none;
+    }
 }
