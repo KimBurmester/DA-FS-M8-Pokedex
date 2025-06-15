@@ -35,3 +35,7 @@
     background-color: rgb(219, 237, 246);
     margin: 15px;
 }
+
+.pokemon-info:hover{
+    background-color: rgb(25, 25, 25, 0.3);
+}

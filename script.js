@@ -38,14 +38,14 @@
 
         const div = document.createElement('div');
         div.innerHTML = `
-          <div class="pokemon-info"><h3>${pokeData.name.toUpperCase()}</h3>
+          <div class="pokemon-info box-shadow-bottom"><h3>${pokeData.name.toUpperCase()}</h3>
           <p><strong>ID:</strong> ${pokeData.id}</p>
           <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
-          <p><strong>Größe:</strong> ${pokeData.height}</p>
-          <p><strong>Gewicht:</strong> ${pokeData.weight}</p>
           <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
           </div>
         `;
         container.appendChild(div);
       }
     }
+/*           <p><strong>Größe:</strong> ${pokeData.height}</p>
+          <p><strong>Gewicht:</strong> ${pokeData.weight}</p> */
