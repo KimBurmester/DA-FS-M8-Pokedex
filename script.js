@@ -47,7 +47,8 @@ const typeColors = {
 
 let offset = 0;
 const limit = 20;
-
+let loadedPokemon = [];
+let currentOverlayIndex = 0;
 
 async function loadInitialPokemon() {
   offset = 0;
@@ -123,7 +124,11 @@ async function loadPokemonBatch() {
       <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
       <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
     `;
+
+    div.onclick = () => showPokemonOverlay(pokeData);
+
     container.appendChild(div);
+    loadedPokemon.push(pokeData);
   }
 
   offset += limit;
@@ -181,3 +186,55 @@ async function searchPokemon() {
   }
 }
 
+
+/* Overlay Logic for Pokemon Overlay*/
+function showPokemonOverlay(pokemon) {
+  const overlay = document.getElementById('pokemon-overlay');
+  const content = document.getElementById('overlay-content');
+
+  // Index merken für Navigation
+  currentOverlayIndex = loadedPokemon.findIndex(p => p.name === pokemon.name);
+
+  const typeNames = pokemon.types.map(t => t.type.name).join(', ');
+  const stats = pokemon.stats;
+
+  content.innerHTML = `
+    <span class="close-btn" onclick="closeOverlay()">✖</span>
+    <h2>${pokemon.name.toUpperCase()}</h2>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" style="display: block; margin: 0 auto;">
+    <p><strong>ID:</strong> ${pokemon.id}</p>
+    <p><strong>Typ:</strong> ${typeNames}</p>
+    <div class="pokemon-stats">
+      <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
+      <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
+      <div><span>Defense:</span><span>${stats[2].base_stat}</span></div>
+      <div><span>Sp. Atk:</span><span>${stats[3].base_stat}</span></div>
+      <div><span>Sp. Def:</span><span>${stats[4].base_stat}</span></div>
+      <div><span>Speed:</span><span>${stats[5].base_stat}</span></div>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="showPreviousPokemon()">←</button>
+      <button onclick="showNextPokemon()">→</button>
+    </div>
+  `;
+
+  overlay.classList.remove('hidden');
+}
+
+function closeOverlay(event) {
+  document.getElementById('pokemon-overlay').classList.add('hidden');
+}
+
+function showPreviousPokemon() {
+  if (currentOverlayIndex > 0) {
+    currentOverlayIndex--;
+    showPokemonOverlay(loadedPokemon[currentOverlayIndex]);
+  }
+}
+
+function showNextPokemon() {
+  if (currentOverlayIndex < loadedPokemon.length - 1) {
+    currentOverlayIndex++;
+    showPokemonOverlay(loadedPokemon[currentOverlayIndex]);
+  }
+}

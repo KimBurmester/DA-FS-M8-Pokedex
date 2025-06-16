@@ -34,6 +34,12 @@
             <div class="footer-copyright f-16-b">&copy; 2025 Kim Pascal Burmester</div>
         </div>
     </footer>
+
+    <div id="pokemon-overlay" class="overlay hidden" onclick="closeOverlay(event)">
+  <div class="overlay-content" id="overlay-content" onclick="event.stopPropagation()">
+    <span class="close-btn" onclick="closeOverlay()">✖</span>
+  </div>
+</div>
 </body>
 <script src="script.js"></script>
 </html>
