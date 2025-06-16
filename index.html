@@ -9,26 +9,30 @@
 </head>
 <body onload="loadInitialPokemon()">
     <header class="header-container box-shadow-bottom bg-light">
-        <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-        <div class="header-text f-32-b fc-white">Pokédex</div>
-        <div class="header-search">
-            <input type="text" id="pokemonName" placeholder="Name in english">
+        <div class="header">
+            <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
+            <div class="header-text f-32-b fc-white">Pokédex</div>
+            <div class="header-search">
+                <input type="text" id="pokemonName" placeholder="Name in english">
+            </div>
         </div>
     </header>
 
     <main class="main-container bg-main">
-        <div id="pokemon-card" class="pokedex-card"></div>
-
-          <div id="loading-overlay" class="loading-overlay hidden">
-    <div class="loader"></div>
-  </div>
+        <div class="main">
+            <div id="pokemon-card" class="pokedex-card"></div>
+        </div>
+        <div id="loading-overlay" class="loading-overlay hidden">
+            <div class="loader"></div>
+        </div>
     </main>
 
     <footer class="footer-container box-shadow-top bg-dark fc-white">
-        <div class="footer-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-        <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
-        <div class="footer-copyright f-16-b">&copy; 2025 Kim Pascal Burmester</div>
-        <!-- <div class="footer-channels"></div> -->
+        <div class="footer">
+            <div class="footer-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
+            <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
+            <div class="footer-copyright f-16-b">&copy; 2025 Kim Pascal Burmester</div>
+        </div>
     </footer>
 </body>
 <script src="script.js"></script>

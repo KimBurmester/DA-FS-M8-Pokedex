@@ -1,38 +1,59 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+
 .header-container{
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
+    /* flex-direction: row; */
     height: 80px;
     margin: 0;
-    padding-left: 400px;
-    padding-right: 400px;
 }
 
 .header-logo img{
     width: 50px;
     height: auto;
-
 }
+
 .header-text{
 
 }
 .header-search input{
-    width: 250px;
+    width: 200px;
     height: 25px;
     border-radius: 8px;
     border: none;
 }
 
-.main-container{
+.main{
     display: flex;
     justify-content: center;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.main-container{
+/*     display: flex;
+    justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     height: calc(100vh - 160px);
     overflow-y: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+}
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .footer-container{
@@ -40,8 +61,6 @@
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 .footer-logo img{
     width: 50px;
@@ -89,7 +108,7 @@
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  animation: spin 0.8s linear infinite;
+  animation: spin 1.2s linear infinite;
 }
 
 @keyframes spin {
@@ -100,18 +119,120 @@
 
 
 
-@media (max-width: 520px) {
-    .header-text{
-        display: none;
+@media (max-width: 1500px) {
+    .header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 920px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 920px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
     }
-
+    .footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 920px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+}
+@media (max-width: 1000px) {
+    .header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 620px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+    }
+    .main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 620px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 620px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
     .footer-copyright{
         display: none;
     }
 }
-@media (max-width: 365px) {
-    .header-search input{
-        width: 180px;
-        height: 35px;
+
+@media (max-width: 650px) {
+    .header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 420px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+    }
+    .header-text{
+        display: none;
+    }
+    .main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 620px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 420px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .footer-copyright{
+        display: none;
+    }
+}
+@media (max-width: 450px) {
+    .header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+    }
+    .main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 420px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .footer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+    .footer-copyright{
+        display: none;
     }
 }
