@@ -1,5 +1,6 @@
 @import url(./styles/header-main-footer.css);
 @import url(./styles/pokedex-cards.css);
+@import url(./styles/pokedex-card-design.css);
 
 *{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
