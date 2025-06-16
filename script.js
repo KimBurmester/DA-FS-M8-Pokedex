@@ -76,12 +76,18 @@ async function loadInitialPokemon() {
         container.appendChild(div);
       }
     } */
+let allPokemonNames = [];
 
+async function preloadPokemonNames() {
+  const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');
+  const data = await res.json();
+  allPokemonNames = data.results.map(p => p.name);
+}
 
 async function loadMorePokemon() {
   const button = document.getElementById('load-more-btn');
   const overlay = document.getElementById('loading-overlay');
-
+  document.getElementById('pokemonName').innerHTML = '';
   // UI blockieren
   button.style.pointerEvents = 'none';
   button.style.opacity = '0.6';
@@ -124,7 +130,54 @@ async function loadPokemonBatch() {
 }
 
 // Initiales Laden
-window.onload = loadInitialPokemon;
+window.onload = async () => {
+  await preloadPokemonNames();
+  await loadInitialPokemon();
+};
 
 
+async function searchPokemon() {
+  const input = document.getElementById('pokemonName').value.trim().toLowerCase();
+  const container = document.getElementById('pokemon-card');
+
+  if (input.length < 3) {
+    container.innerHTML = '';
+    offset = 0;
+    await loadPokemonBatch();
+    return;
+  }
+
+  // Finde ersten passenden vollständigen Namen
+  const match = allPokemonNames.find(name => name.startsWith(input));
+  if (!match) {
+    container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
+    return;
+  }
+
+  // Jetzt echten API-Call mit dem gefundenen Namen
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match}`);
+    if (!response.ok) throw new Error("Pokémon not found");
+
+    const data = await response.json();
+    const type = data.types[0].type.name;
+    const color = typeColors[type] || '#F0F0F0';
+
+    container.innerHTML = '';
+
+    const div = document.createElement('div');
+    div.className = 'pokemon-info box-shadow-bottom';
+    div.style.backgroundColor = color;
+    div.innerHTML = `
+      <h3>${data.name.toUpperCase()}</h3>
+      <p><strong>ID:</strong> ${data.id}</p>
+      <img src="${data.sprites.front_default}" alt="${data.name}">
+      <p><strong>Typen:</strong> ${data.types.map(t => t.type.name).join(', ')}</p>
+    `;
+
+    container.appendChild(div);
+  } catch (err) {
+    container.innerHTML = `<p style="color:red;">${err.message}</p>`;
+  }
+}
 
