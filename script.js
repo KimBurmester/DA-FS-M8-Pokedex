@@ -179,7 +179,7 @@ async function searchPokemon() {
       <img src="${data.sprites.front_default}" alt="${data.name}">
       <p><strong>Typen:</strong> ${data.types.map(t => t.type.name).join(', ')}</p>
     `;
-
+    div.onclick = () => showPokemonOverlay(data);
     container.appendChild(div);
   } catch (err) {
     container.innerHTML = `<p style="color:red;">${err.message}</p>`;
