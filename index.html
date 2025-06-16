@@ -18,11 +18,15 @@
 
     <main class="main-container bg-main">
         <div id="pokemon-card" class="pokedex-card"></div>
+
+          <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loader"></div>
+  </div>
     </main>
 
     <footer class="footer-container box-shadow-top bg-dark fc-white">
         <div class="footer-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-        <div class="footer-loading bg-hover">Mehr Pokémon laden</div>
+        <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
         <div class="footer-copyright f-16-b">&copy; 2025 Kim Pascal Burmester</div>
         <!-- <div class="footer-channels"></div> -->
     </footer>

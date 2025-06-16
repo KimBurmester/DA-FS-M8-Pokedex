@@ -45,11 +45,19 @@ const typeColors = {
   flying: 'rgb(168, 207, 255)'       // #A8CFFF
 };
 
+let offset = 0;
+const limit = 20;
 
-    async function loadInitialPokemon() {
+
+async function loadInitialPokemon() {
+  offset = 0;
+  await loadPokemonBatch();
+}
+
+
+/*     async function loadInitialPokemon() {
       const container = document.getElementById('pokemon-card');
       container.innerHTML = '';
-      const limit = 40;
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
       const data = await response.json();
       for (const pokemon of data.results) {
@@ -67,10 +75,56 @@ const typeColors = {
         `;
         container.appendChild(div);
       }
-    }
-/*           <p><strong>Größe:</strong> ${pokeData.height}</p>
-          <p><strong>Gewicht:</strong> ${pokeData.weight}</p><div class="pokemon-name"></div> */
+    } */
 
+
+async function loadMorePokemon() {
+  const button = document.getElementById('load-more-btn');
+  const overlay = document.getElementById('loading-overlay');
+
+  // UI blockieren
+  button.style.pointerEvents = 'none';
+  button.style.opacity = '0.6';
+  overlay.classList.remove('hidden');
+
+  // Pokémon laden
+  await loadPokemonBatch();
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  // UI wieder freigeben
+  overlay.classList.add('hidden');
+  button.style.pointerEvents = 'auto';
+  button.style.opacity = '1';
+}
+
+async function loadPokemonBatch() {
+  const container = document.getElementById('pokemon-card');
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+  const data = await response.json();
+
+  for (const pokemon of data.results) {
+    const pokeData = await fetch(pokemon.url).then(res => res.json());
+    const type = pokeData.types[0].type.name;
+    const color = typeColors[type] || '#F0F0F0';
+
+    const div = document.createElement('div');
+    div.className = 'pokemon-info box-shadow-bottom';
+    div.style.backgroundColor = color;
+
+    div.innerHTML = `
+      <h3>${pokeData.name.toUpperCase()}</h3>
+      <p><strong>ID:</strong> ${pokeData.id}</p>
+      <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
+      <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
+    `;
+    container.appendChild(div);
+  }
+
+  offset += limit;
+}
+
+// Initiales Laden
+window.onload = loadInitialPokemon;
 
 
 
