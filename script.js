@@ -1,29 +1,3 @@
-/*     async function loadPokemon() {
-      const name = document.getElementById('pokemonName').value.toLowerCase();
-      const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Pokémon nicht gefunden");
-        }
-
-        const data = await response.json();
-
-        // Daten anzeigen
-        const infoDiv = document.getElementById('pokemon-card');
-        infoDiv.innerHTML = `
-          <div class="pokemon-info"><h2>${data.name.toUpperCase()}</h2>
-          <img src="${data.sprites.front_default}" alt="${data.name}">
-          <p><strong>Größe:</strong> ${data.height}</p>
-          <p><strong>Gewicht:</strong> ${data.weight}</p>
-          <p><strong>Typen:</strong> ${data.types.map(t => t.type.name).join(', ')}</p>
-          </div>
-        `;
-      } catch (error) {
-        document.getElementById('pokemon-card').innerHTML = `<p style="color:red;">${error.message}</p>`;
-      }
-    } */
 const typeColors = {
   grass: 'rgb(168, 230, 162)',       // #A8E6A2
   fire: 'rgb(255, 167, 86)',         // #FFA756
@@ -48,36 +22,13 @@ const typeColors = {
 let offset = 0;
 const limit = 20;
 let loadedPokemon = [];
+let allPokemonNames = [];
 let currentOverlayIndex = 0;
 
 async function loadInitialPokemon() {
   offset = 0;
   await loadPokemonBatch();
 }
-
-
-/*     async function loadInitialPokemon() {
-      const container = document.getElementById('pokemon-card');
-      container.innerHTML = '';
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-      const data = await response.json();
-      for (const pokemon of data.results) {
-        const pokeData = await fetch(pokemon.url).then(res => res.json());
-        const type = pokeData.types[0].type.name;
-        const color = typeColors[type] || '#F0F0F0';
-        const div = document.createElement('div');
-        div.className = 'pokemon-info box-shadow-bottom';
-        div.style.backgroundColor = color;
-        div.innerHTML = `
-          <h3>${pokeData.name.toUpperCase()}</h3>
-          <div class="pokemon-id"><p><strong>ID:</strong> ${pokeData.id}</p></div>
-          <div class="pokemon-picture"><img src="${pokeData.sprites.front_default}" alt="${pokeData.name}"></div>
-          <div class="pokemon-type"><p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p></div>
-        `;
-        container.appendChild(div);
-      }
-    } */
-let allPokemonNames = [];
 
 async function preloadPokemonNames() {
   const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');
@@ -89,16 +40,11 @@ async function loadMorePokemon() {
   const button = document.getElementById('load-more-btn');
   const overlay = document.getElementById('loading-overlay');
   document.getElementById('pokemonName').innerHTML = '';
-  // UI blockieren
   button.style.pointerEvents = 'none';
   button.style.opacity = '0.6';
   overlay.classList.remove('hidden');
-
-  // Pokémon laden
   await loadPokemonBatch();
   await new Promise(resolve => setTimeout(resolve, 800));
-
-  // UI wieder freigeben
   overlay.classList.add('hidden');
   button.style.pointerEvents = 'auto';
   button.style.opacity = '1';
@@ -108,43 +54,34 @@ async function loadPokemonBatch() {
   const container = document.getElementById('pokemon-card');
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
   const data = await response.json();
-
   for (const pokemon of data.results) {
     const pokeData = await fetch(pokemon.url).then(res => res.json());
     const type = pokeData.types[0].type.name;
     const color = typeColors[type] || '#F0F0F0';
-
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
     div.style.backgroundColor = color;
-
     div.innerHTML = `
       <h3>${pokeData.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${pokeData.id}</p>
       <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
       <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
     `;
-
     div.onclick = () => showPokemonOverlay(pokeData);
-
     container.appendChild(div);
     loadedPokemon.push(pokeData);
   }
-
   offset += limit;
 }
 
-// Initiales Laden
 window.onload = async () => {
   await preloadPokemonNames();
   await loadInitialPokemon();
 };
 
-
 async function searchPokemon() {
   const input = document.getElementById('pokemonName').value.trim().toLowerCase();
   const container = document.getElementById('pokemon-card');
-
   if (input.length < 3) {
     container.innerHTML = '';
     offset = 0;
@@ -152,24 +89,19 @@ async function searchPokemon() {
     return;
   }
 
-  // Finde ersten passenden vollständigen Namen
   const match = allPokemonNames.find(name => name.startsWith(input));
   if (!match) {
     container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
     return;
   }
 
-  // Jetzt echten API-Call mit dem gefundenen Namen
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match}`);
     if (!response.ok) throw new Error("Pokémon not found");
-
     const data = await response.json();
     const type = data.types[0].type.name;
     const color = typeColors[type] || '#F0F0F0';
-
     container.innerHTML = '';
-
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
     div.style.backgroundColor = color;
@@ -186,18 +118,13 @@ async function searchPokemon() {
   }
 }
 
-
 /* Overlay Logic for Pokemon Overlay*/
 function showPokemonOverlay(pokemon) {
   const overlay = document.getElementById('pokemon-overlay');
   const content = document.getElementById('overlay-content');
-
-  // Index merken für Navigation
   currentOverlayIndex = loadedPokemon.findIndex(p => p.name === pokemon.name);
-
   const typeNames = pokemon.types.map(t => t.type.name).join(', ');
   const stats = pokemon.stats;
-
   content.innerHTML = `
     <span class="close-btn" onclick="closeOverlay()">✖</span>
     <h2>${pokemon.name.toUpperCase()}</h2>
@@ -217,7 +144,6 @@ function showPokemonOverlay(pokemon) {
       <button onclick="showNextPokemon()">→</button>
     </div>
   `;
-
   overlay.classList.remove('hidden');
 }
 
