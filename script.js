@@ -19,6 +19,27 @@ const typeColors = {
   flying: 'rgb(168, 207, 255)'       // #A8CFFF
 };
 
+const emojiMap = {
+  fire: '🔥',
+  water: '💧',
+  grass: '🌿',
+  electric: '⚡',
+  psychic: '🧠',
+  ghost: '👻',
+  dark: '🌑',
+  fairy: '✨',
+  bug: '🐛',
+  rock: '🪨',
+  steel: '🔩',
+  flying: '🕊️',
+  ground: '🌍',
+  normal: '⚪',
+  fighting: '🥊',
+  poison: '☠️',
+  ice: '❄️',
+  dragon: '🐉',
+};
+
 let offset = 0;
 const limit = 20;
 let loadedPokemon = [];
@@ -56,11 +77,19 @@ async function loadPokemonBatch() {
   const data = await response.json();
   for (const pokemon of data.results) {
     const pokeData = await fetch(pokemon.url).then(res => res.json());
-    const type = pokeData.types[0].type.name;
-    const color = typeColors[type] || '#F0F0F0';
+/*     const type = pokeData.types[0].type.name;
+    const color = typeColors[type] || '#F0F0F0'; */
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
-    div.style.backgroundColor = color;
+    // div.style.backgroundColor = color;
+
+    const types = pokeData.types.map(t => t.type.name);
+    const color1 = typeColors[types[0]] || '#F0F0F0';
+    const color2 = types[1] ? typeColors[types[1]] : color1;
+
+    div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
+
+
     div.innerHTML = `
       <h3>${pokeData.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${pokeData.id}</p>
@@ -99,12 +128,20 @@ async function searchPokemon() {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match}`);
     if (!response.ok) throw new Error("Pokémon not found");
     const data = await response.json();
-    const type = data.types[0].type.name;
-    const color = typeColors[type] || '#F0F0F0';
+/*     const type = data.types[0].type.name;
+    const color = typeColors[type] || '#F0F0F0'; */
     container.innerHTML = '';
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
-    div.style.backgroundColor = color;
+    // div.style.backgroundColor = color;
+
+    const types = data.types.map(t => t.type.name);
+    const color1 = typeColors[types[0]] || '#F0F0F0';
+    const color2 = types[1] ? typeColors[types[1]] : color1;
+
+    div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
+
+
     div.innerHTML = `
       <h3>${data.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${data.id}</p>
@@ -122,20 +159,35 @@ async function searchPokemon() {
 function showPokemonOverlay(pokemon) {
   const overlay = document.getElementById('pokemon-overlay');
   const content = document.getElementById('overlay-content');
+
   currentOverlayIndex = loadedPokemon.findIndex(p => p.name === pokemon.name);
+
   const typeNames = pokemon.types.map(t => t.type.name).join(', ');
   const stats = pokemon.stats;
+  const types = pokemon.types.map(t => t.type.name);
+  const color1 = typeColors[types[0]] || '#F0F0F0';
+  const color2 = types[1] ? typeColors[types[1]] : color1;
+
   content.innerHTML = `
     <span class="close-btn" onclick="closeOverlay()">✖</span>
     <h2>${pokemon.name.toUpperCase()}</h2>
-    <div class="pokemon-header">    
-    <div class="pokemonTypeId">
-    <div class="pokemonId"><strong>ID:</strong> ${pokemon.id}</div>
-    <div class="pokemonType"><strong>Typ:</strong> ${typeNames}</div>
-    </div> 
-    <div class="pokemonPicture">
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-    </div>   
+
+    <div class="pokemon-header" style="background: linear-gradient(135deg, ${color1}, ${color2});">    
+      <div class="pokemonTypeId">
+        <div class="pokemonTypeIdText">
+          <strong>ID:</strong>
+          <div class="pokemonId">${pokemon.id}</div>
+        </div>
+        <div class="pokemonTypeIdText">
+          <strong>Typ:</strong>
+          <div class="pokemonType" style="background-color: ${color1}; padding: 4px 8px; border-radius: 6px; color: #fff;">
+            ${typeNames}
+          </div>
+        </div>
+      </div> 
+      <div class="pokemonPicture">
+        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+      </div>   
     </div>
 
     <div class="pokemon-stats">
@@ -146,13 +198,16 @@ function showPokemonOverlay(pokemon) {
       <div><span>Sp. Def:</span><span>${stats[4].base_stat}</span></div>
       <div><span>Speed:</span><span>${stats[5].base_stat}</span></div>
     </div>
+
     <div class="nav-buttons">
       <button onclick="showPreviousPokemon()">←</button>
       <button onclick="showNextPokemon()">→</button>
     </div>
   `;
+
   overlay.classList.remove('hidden');
 }
+
 
 function closeOverlay(event) {
   document.getElementById('pokemon-overlay').classList.add('hidden');

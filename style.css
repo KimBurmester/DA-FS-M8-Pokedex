@@ -6,6 +6,28 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  --type-grass: rgb(168, 230, 162);
+  --type-fire: rgb(255, 167, 86);
+  --type-water: rgb(88, 171, 246);
+  --type-electric: rgb(251, 226, 115);
+  --type-bug: rgb(195, 206, 117);
+  --type-normal: rgb(190, 190, 190);
+  --type-poison: rgb(193, 131, 193);
+  --type-ground: rgb(230, 192, 123);
+  --type-fairy: rgb(244, 189, 201);
+  --type-fighting: rgb(225, 127, 126);
+  --type-psychic: rgb(250, 146, 178);
+  --type-rock: rgb(213, 213, 212);
+  --type-ghost: rgb(120, 125, 156);
+  --type-ice: rgb(180, 241, 241);
+  --type-dragon: rgb(162, 124, 245);
+  --type-dark: rgb(169, 169, 169);
+  --type-steel: rgb(204, 204, 222);
+  --type-flying: rgb(168, 207, 255);
+}
+
+
 html, body{
     height: 100%;
     margin: 0;
