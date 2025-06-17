@@ -14,7 +14,8 @@ Ein interaktiver Pokédex im Stil der klassischen Pokémon-Welt – vollständig
 
 ## 📸 Screenshots
 
-> *(Optional: Füge hier Screenshots deiner Anwendung ein, z. B. mit `![Vorschau](./screenshots/overview.png)`)*
+![grafik](https://github.com/user-attachments/assets/0c9ddf3f-d459-408b-b82a-895d8830f80d)
+
 
 ## 🚀 Technologien
 
@@ -26,11 +27,3 @@ Ein interaktiver Pokédex im Stil der klassischen Pokémon-Welt – vollständig
 ## 📁 Projektstruktur
 
 ```plaintext
-/ (root)
-│
-├── index.html             # Einstiegspunkt
-├── style.css              # Hauptstyling
-├── script.js              # JS-Logik (API, Events, Rendering)
-├── /img/                  # Logos und Grafiken
-├── /screenshots/          # (optional) Vorschauen
-└── README.md              # Dieses Dokument
