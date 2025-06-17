@@ -60,7 +60,7 @@
 }
 
 .overlay-content {
-  background: #f8f8f8;
+  background: #22a9e8;
   border-radius: 16px;
   padding: 24px;
   width: 400px;
@@ -84,11 +84,30 @@
   cursor: pointer;
 }
 
+.pokemon-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pokemonTypeId{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 16px;
+}
+
+.pokemonPicture{
+  padding-right: 16px;
+}
+
 .pokemon-stats {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px;
+  padding: 32px;
+  background-color: #2288e8;
+  border-radius: 16px;
 }
 
 .pokemon-stats div {

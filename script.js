@@ -128,9 +128,16 @@ function showPokemonOverlay(pokemon) {
   content.innerHTML = `
     <span class="close-btn" onclick="closeOverlay()">✖</span>
     <h2>${pokemon.name.toUpperCase()}</h2>
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" style="display: block; margin: 0 auto;">
-    <p><strong>ID:</strong> ${pokemon.id}</p>
-    <p><strong>Typ:</strong> ${typeNames}</p>
+    <div class="pokemon-header">    
+    <div class="pokemonTypeId">
+    <div class="pokemonId"><strong>ID:</strong> ${pokemon.id}</div>
+    <div class="pokemonType"><strong>Typ:</strong> ${typeNames}</div>
+    </div> 
+    <div class="pokemonPicture">
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    </div>   
+    </div>
+
     <div class="pokemon-stats">
       <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
       <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
