@@ -71,7 +71,7 @@ async function loadMorePokemon() {
   button.style.opacity = '1';
 }
 
-async function loadPokemonBatch() {
+/* async function loadPokemonBatch() {
   const container = document.getElementById('pokemon-card');
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
   const data = await response.json();
@@ -87,13 +87,54 @@ async function loadPokemonBatch() {
       <h3>${pokeData.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${pokeData.id}</p>
       <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
-      <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>
-    `;
+      <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>`;
     div.onclick = () => showPokemonOverlay(pokeData);
     container.appendChild(div);
     loadedPokemon.push(pokeData);
   }
   offset += limit;
+} */
+
+/* //FUNC: Help Function loadPokemonBatch() */
+async function loadPokemonBatch() {
+  const container = document.getElementById('pokemon-card');
+  const pokemonList = await fetchPokemonList(limit, offset);
+  for (const pokemon of pokemonList) {
+    const pokeData = await fetchPokemonDetails(pokemon.url);
+    renderPokemonCard(pokeData, container);
+    loadedPokemon.push(pokeData);
+  }
+  offset += limit;
+}
+
+/* //FUNC: Help Function fetchPokemonList(limit, offset) */
+async function fetchPokemonList(limit, offset) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+  const data = await response.json();
+  return data.results;
+}
+
+/* //FUNC: Help Function featchPokemonDetails(url) */
+async function fetchPokemonDetails(url) {
+  const response = await fetch(url);
+  return await response.json();
+}
+
+/* //FUNC: Help Function renderPokemonCard(pokemon, container) */
+function renderPokemonCard(pokemon, container) {
+  const types = pokemon.types.map(t => t.type.name);
+  const color1 = typeColors[types[0]] || '#F0F0F0';
+  const color2 = types[1] ? typeColors[types[1]] : color1;
+  const div = document.createElement('div');
+  div.className = 'pokemon-info box-shadow-bottom';
+  div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
+  div.innerHTML = `
+    <h3>${pokemon.name.toUpperCase()}</h3>
+    <p><strong>ID:</strong> ${pokemon.id}</p>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <p><strong>Typen:</strong> ${types.join(', ')}</p>`;
+  div.onclick = () => showPokemonOverlay(pokemon);
+  container.appendChild(div);
 }
 
 window.onload = async () => {
@@ -101,94 +142,12 @@ window.onload = async () => {
   await loadInitialPokemon();
 };
 
-async function searchPokemon() {
-  const input = document.getElementById('pokemonName').value.trim().toLowerCase();
-  const container = document.getElementById('pokemon-card');
-  if (input.length < 3) {
-    container.innerHTML = '';
-    offset = 0;
-    await loadPokemonBatch();
-    return;
-  }
-  const match = allPokemonNames.find(name => name.startsWith(input));
-  if (!match) {
-    container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
-    return;
-  }
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match}`);
-    if (!response.ok) throw new Error("Pokémon not found");
-    const data = await response.json();
-    container.innerHTML = '';
-    const div = document.createElement('div');
-    div.className = 'pokemon-info box-shadow-bottom';
-    const types = data.types.map(t => t.type.name);
-    const color1 = typeColors[types[0]] || '#F0F0F0';
-    const color2 = types[1] ? typeColors[types[1]] : color1;
-    div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
-    div.innerHTML = `
-      <h3>${data.name.toUpperCase()}</h3>
-      <p><strong>ID:</strong> ${data.id}</p>
-      <img src="${data.sprites.front_default}" alt="${data.name}">
-      <p><strong>Typen:</strong> ${data.types.map(t => t.type.name).join(', ')}</p>
-    `;
-    div.onclick = () => showPokemonOverlay(data);
-    container.appendChild(div);
-  } catch (err) {
-    container.innerHTML = `<p style="color:red;">${err.message}</p>`;
-  }
-}
-
-/* Overlay Logic for Pokemon Overlay*/
-/* function showPokemonOverlay(pokemon) {
-  const overlay = document.getElementById('pokemon-overlay');
-  const content = document.getElementById('overlay-content');
-  currentOverlayIndex = loadedPokemon.findIndex(p => p.name === pokemon.name);
-  const typeNames = pokemon.types.map(t => t.type.name).join(', ');
-  const stats = pokemon.stats;
-  const types = pokemon.types.map(t => t.type.name);
-  const color1 = typeColors[types[0]] || '#F0F0F0';
-  const color2 = types[1] ? typeColors[types[1]] : color1;
-  content.innerHTML = `
-    <span class="close-btn" onclick="closeOverlay()">✖</span>
-    <h2>${pokemon.name.toUpperCase()}</h2>
-    <div class="pokemon-header" style="background: linear-gradient(135deg, ${color1}, ${color2});">    
-      <div class="pokemonTypeId">
-        <div class="pokemonTypeIdText">
-          <strong>ID:</strong>
-          <div class="pokemonId">${pokemon.id}</div>
-        </div>
-        <div class="pokemonTypeIdText">
-          <strong>Typ:</strong>
-          <div class="pokemonType" style="background-color: ${color1}; padding: 4px 8px; border-radius: 6px; color: #fff;">
-            ${typeNames}
-          </div>
-        </div>
-      </div> 
-      <div class="pokemonPicture">
-        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-      </div>   
-    </div>
-    <div class="pokemon-stats">
-      <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
-      <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
-      <div><span>Defense:</span><span>${stats[2].base_stat}</span></div>
-      <div><span>Sp. Atk:</span><span>${stats[3].base_stat}</span></div>
-      <div><span>Sp. Def:</span><span>${stats[4].base_stat}</span></div>
-      <div><span>Speed:</span><span>${stats[5].base_stat}</span></div>
-    </div>
-    <div class="nav-buttons">
-      <button onclick="showPreviousPokemon()">←</button>
-      <button onclick="showNextPokemon()">→</button>
-    </div>
-  `;
-  overlay.classList.remove('hidden');
-} */
-
+/* //FUNC: Help Function closeOverlay(event) */
 function closeOverlay(event) {
   document.getElementById('pokemon-overlay').classList.add('hidden');
 }
 
+/* //FUNC: Help Function showPreviousPokemon() */
 function showPreviousPokemon() {
   if (currentOverlayIndex > 0) {
     currentOverlayIndex--;
@@ -196,6 +155,7 @@ function showPreviousPokemon() {
   }
 }
 
+/* //FUNC: Help Function showNextPokemon() */
 function showNextPokemon() {
   if (currentOverlayIndex < loadedPokemon.length - 1) {
     currentOverlayIndex++;
@@ -228,7 +188,7 @@ function generatePokemonOverlayHTML(pokemon) {
   return `
     <span class="close-btn" onclick="closeOverlay()">✖</span>
     <h2>${pokemon.name.toUpperCase()}</h2>
-    <div class="pokemon-header" style="background: linear-gradient(135deg, ${color1}, ${color2});">
+    <div class="pokemon-header box-shadow-bottom" style="background: linear-gradient(135deg, ${color1}, ${color2});">
       ${generateTypeIdSection(pokemon, typeNames, color1)}
       ${generateImageSection(pokemon)}
     </div>
@@ -247,7 +207,7 @@ function generateTypeIdSection(pokemon, typeNames, color) {
       </div>
       <div class="pokemonTypeIdText">
         <strong>Typ:</strong>
-        <div class="pokemonType" style="background-color: ${color}; padding: 4px 8px; border-radius: 6px; color: #fff;">
+        <div class="pokemonType box-shadow-bottom" style="background-color: ${color}; padding: 4px 8px; border-radius: 6px; color: #fff;">
           ${typeNames}
         </div>
       </div>
@@ -267,7 +227,7 @@ function generateImageSection(pokemon) {
 /* //FUNC: Stats Template */
 function generateStatsSection(stats) {
   return `
-    <div class="pokemon-stats">
+    <div class="pokemon-stats box-shadow-bottom">
       <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
       <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
       <div><span>Defense:</span><span>${stats[2].base_stat}</span></div>
@@ -309,3 +269,60 @@ async function searchPokemon() {
     showSearchError(container, err.message);
   }
 }
+
+/* //FUNC: Help function getSearchInput */
+function getSearchInput() {
+  return document.getElementById('pokemonName').value.trim().toLowerCase();
+}
+
+/* //FUNC: Help function isValidSearchInput */
+function isValidSearchInput(input) {
+  return input.length >= 3;
+}
+
+/* //FUNC: Help Function resetSearchResults */
+function resetSearchResults(container) {
+  container.innerHTML = '';
+  offset = 0;
+}
+
+/* //FUNC: Help Function findMatchingPokemonName */
+function findMatchingPokemonName(input) {
+  return allPokemonNames.find(name => name.startsWith(input));
+}
+
+/* //FUNC: Help Function fetchPokemonByName(name) */
+async function fetchPokemonByName(name) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  if (!response.ok) throw new Error("Pokémon not found");
+  return await response.json();
+}
+
+/* //FUNC: Help Function displaySearchedPokemon(pokemon, container)*/
+function displaySearchedPokemon(pokemon, container) {
+  container.innerHTML = '';
+  const types = pokemon.types.map(t => t.type.name);
+  const color1 = typeColors[types[0]] || '#F0F0F0';
+  const color2 = types[1] ? typeColors[types[1]] : color1;
+  const div = document.createElement('div');
+  div.className = 'pokemon-info box-shadow-bottom';
+  div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
+  div.innerHTML = `
+    <h3>${pokemon.name.toUpperCase()}</h3>
+    <p><strong>ID:</strong> ${pokemon.id}</p>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <p><strong>Typen:</strong> ${types.join(', ')}</p>`;
+  div.onclick = () => showPokemonOverlay(pokemon);
+  container.appendChild(div);
+}
+
+/* //FUNC: Help showNoResultsMessage(container) */
+function showNoResultsMessage(container) {
+  container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
+}
+
+/* //FUNC: Help Function showSearchError(container, message) */
+function showSearchError(container, message) {
+  container.innerHTML = `<p style="color:red;">${message}</p>`;
+}
+
