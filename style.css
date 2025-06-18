@@ -40,29 +40,14 @@ body{
     font-size: 16px;
     font-weight: bold;
 }
-.f-16{
-    font-size: 16px;
-}
 
 .f-32-b{
     font-size: 32px;
     font-weight: bold;
 }
 
-.f-22{
-    font-size: 22px;
-}
-
 .fc-white{
     color: white;
-}
-
-.fc-black{
-    color: black;
-}
-
-.fc-grey{
-    color:grey;
 }
 
 .box-shadow-top{
@@ -83,31 +68,4 @@ body{
 
 .bg-main{
     background-color: rgba(81, 155, 189, 0.644);
-}
-
-.bg-white{
-    background-color: white;
-}
-
-.mg-top{
-    margin-top: 15px;
-}
-.mg-left{
-    margin-left: 15px;
-}
-.mg-right{
-    margin-right: 15px;
-}
-.mg-bottom{
-    margin-bottom: 15px;
-}
-.mg-total{
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-}
-
-.bg-hover:hover{
-    background-color: rgb(25, 25, 25, 0.3);
 }
