@@ -77,19 +77,12 @@ async function loadPokemonBatch() {
   const data = await response.json();
   for (const pokemon of data.results) {
     const pokeData = await fetch(pokemon.url).then(res => res.json());
-/*     const type = pokeData.types[0].type.name;
-    const color = typeColors[type] || '#F0F0F0'; */
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
-    // div.style.backgroundColor = color;
-
     const types = pokeData.types.map(t => t.type.name);
     const color1 = typeColors[types[0]] || '#F0F0F0';
     const color2 = types[1] ? typeColors[types[1]] : color1;
-
     div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
-
-
     div.innerHTML = `
       <h3>${pokeData.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${pokeData.id}</p>
@@ -117,31 +110,22 @@ async function searchPokemon() {
     await loadPokemonBatch();
     return;
   }
-
   const match = allPokemonNames.find(name => name.startsWith(input));
   if (!match) {
     container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
     return;
   }
-
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match}`);
     if (!response.ok) throw new Error("Pokémon not found");
     const data = await response.json();
-/*     const type = data.types[0].type.name;
-    const color = typeColors[type] || '#F0F0F0'; */
     container.innerHTML = '';
     const div = document.createElement('div');
     div.className = 'pokemon-info box-shadow-bottom';
-    // div.style.backgroundColor = color;
-
     const types = data.types.map(t => t.type.name);
     const color1 = typeColors[types[0]] || '#F0F0F0';
     const color2 = types[1] ? typeColors[types[1]] : color1;
-
     div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
-
-
     div.innerHTML = `
       <h3>${data.name.toUpperCase()}</h3>
       <p><strong>ID:</strong> ${data.id}</p>
@@ -156,22 +140,18 @@ async function searchPokemon() {
 }
 
 /* Overlay Logic for Pokemon Overlay*/
-function showPokemonOverlay(pokemon) {
+/* function showPokemonOverlay(pokemon) {
   const overlay = document.getElementById('pokemon-overlay');
   const content = document.getElementById('overlay-content');
-
   currentOverlayIndex = loadedPokemon.findIndex(p => p.name === pokemon.name);
-
   const typeNames = pokemon.types.map(t => t.type.name).join(', ');
   const stats = pokemon.stats;
   const types = pokemon.types.map(t => t.type.name);
   const color1 = typeColors[types[0]] || '#F0F0F0';
   const color2 = types[1] ? typeColors[types[1]] : color1;
-
   content.innerHTML = `
     <span class="close-btn" onclick="closeOverlay()">✖</span>
     <h2>${pokemon.name.toUpperCase()}</h2>
-
     <div class="pokemon-header" style="background: linear-gradient(135deg, ${color1}, ${color2});">    
       <div class="pokemonTypeId">
         <div class="pokemonTypeIdText">
@@ -189,7 +169,6 @@ function showPokemonOverlay(pokemon) {
         <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
       </div>   
     </div>
-
     <div class="pokemon-stats">
       <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
       <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
@@ -198,16 +177,13 @@ function showPokemonOverlay(pokemon) {
       <div><span>Sp. Def:</span><span>${stats[4].base_stat}</span></div>
       <div><span>Speed:</span><span>${stats[5].base_stat}</span></div>
     </div>
-
     <div class="nav-buttons">
       <button onclick="showPreviousPokemon()">←</button>
       <button onclick="showNextPokemon()">→</button>
     </div>
   `;
-
   overlay.classList.remove('hidden');
-}
-
+} */
 
 function closeOverlay(event) {
   document.getElementById('pokemon-overlay').classList.add('hidden');
@@ -226,3 +202,90 @@ function showNextPokemon() {
     showPokemonOverlay(loadedPokemon[currentOverlayIndex]);
   }
 }
+
+/* //FUNC: showPokemonOverlay(pokemon)*/
+function showPokemonOverlay(pokemon) {
+  const overlay = document.getElementById('pokemon-overlay');
+  const content = document.getElementById('overlay-content');
+  currentOverlayIndex = getPokemonIndex(pokemon.name);
+  const html = generatePokemonOverlayHTML(pokemon);
+  content.innerHTML = html;
+  overlay.classList.remove('hidden');
+}
+
+/* //FUNC: helpfunction for Searching the Index*/
+function getPokemonIndex(name) {
+  return loadedPokemon.findIndex(p => p.name === name);
+}
+
+/* //FUNC: generate Template Overlay HTML*/
+function generatePokemonOverlayHTML(pokemon) {
+  const types = pokemon.types.map(t => t.type.name);
+  const typeNames = types.join(', ');
+  const stats = pokemon.stats;
+  const color1 = typeColors[types[0]] || '#F0F0F0';
+  const color2 = types[1] ? typeColors[types[1]] : color1;
+  return `
+    <span class="close-btn" onclick="closeOverlay()">✖</span>
+    <h2>${pokemon.name.toUpperCase()}</h2>
+    <div class="pokemon-header" style="background: linear-gradient(135deg, ${color1}, ${color2});">
+      ${generateTypeIdSection(pokemon, typeNames, color1)}
+      ${generateImageSection(pokemon)}
+    </div>
+    ${generateStatsSection(stats)}
+    ${generateNavigationButtons()}
+  `;
+}
+
+/* //FUNC: Type and ID generate Template */
+function generateTypeIdSection(pokemon, typeNames, color) {
+  return `
+    <div class="pokemonTypeId">
+      <div class="pokemonTypeIdText">
+        <strong>ID:</strong>
+        <div class="pokemonId">${pokemon.id}</div>
+      </div>
+      <div class="pokemonTypeIdText">
+        <strong>Typ:</strong>
+        <div class="pokemonType" style="background-color: ${color}; padding: 4px 8px; border-radius: 6px; color: #fff;">
+          ${typeNames}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* //FUNC: Image Template */
+function generateImageSection(pokemon) {
+  return `
+    <div class="pokemonPicture">
+      <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    </div>
+  `;
+}
+
+/* //FUNC: Stats Template */
+function generateStatsSection(stats) {
+  return `
+    <div class="pokemon-stats">
+      <div><span>HP:</span><span>${stats[0].base_stat}</span></div>
+      <div><span>Attack:</span><span>${stats[1].base_stat}</span></div>
+      <div><span>Defense:</span><span>${stats[2].base_stat}</span></div>
+      <div><span>Sp. Atk:</span><span>${stats[3].base_stat}</span></div>
+      <div><span>Sp. Def:</span><span>${stats[4].base_stat}</span></div>
+      <div><span>Speed:</span><span>${stats[5].base_stat}</span></div>
+    </div>
+  `;
+}
+
+/*//FUNC: Navigation Template */
+function generateNavigationButtons() {
+  return `
+    <div class="nav-buttons">
+      <button onclick="showPreviousPokemon()">←</button>
+      <button onclick="showNextPokemon()">→</button>
+    </div>
+  `;
+}
+
+
