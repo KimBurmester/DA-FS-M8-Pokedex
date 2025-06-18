@@ -19,6 +19,7 @@ const typeColors = {
   flying: 'rgb(168, 207, 255)'       // #A8CFFF
 };
 
+/* //NOTE: New Feature coming soon! PokemonType in emoji Style*/
 const emojiMap = {
   fire: '🔥',
   water: '💧',
@@ -70,30 +71,6 @@ async function loadMorePokemon() {
   button.style.pointerEvents = 'auto';
   button.style.opacity = '1';
 }
-
-/* async function loadPokemonBatch() {
-  const container = document.getElementById('pokemon-card');
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
-  const data = await response.json();
-  for (const pokemon of data.results) {
-    const pokeData = await fetch(pokemon.url).then(res => res.json());
-    const div = document.createElement('div');
-    div.className = 'pokemon-info box-shadow-bottom';
-    const types = pokeData.types.map(t => t.type.name);
-    const color1 = typeColors[types[0]] || '#F0F0F0';
-    const color2 = types[1] ? typeColors[types[1]] : color1;
-    div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
-    div.innerHTML = `
-      <h3>${pokeData.name.toUpperCase()}</h3>
-      <p><strong>ID:</strong> ${pokeData.id}</p>
-      <img src="${pokeData.sprites.front_default}" alt="${pokeData.name}">
-      <p><strong>Typen:</strong> ${pokeData.types.map(t => t.type.name).join(', ')}</p>`;
-    div.onclick = () => showPokemonOverlay(pokeData);
-    container.appendChild(div);
-    loadedPokemon.push(pokeData);
-  }
-  offset += limit;
-} */
 
 /* //FUNC: Help Function loadPokemonBatch() */
 async function loadPokemonBatch() {
