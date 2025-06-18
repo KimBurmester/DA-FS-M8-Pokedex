@@ -288,4 +288,24 @@ function generateNavigationButtons() {
   `;
 }
 
-
+/* //FUNC: searchPokemon() Function */
+async function searchPokemon() {
+  const input = getSearchInput();
+  const container = document.getElementById('pokemon-card');
+  if (!isValidSearchInput(input)) {
+    resetSearchResults(container);
+    await loadPokemonBatch();
+    return;
+  }
+  const match = findMatchingPokemonName(input);
+  if (!match) {
+    showNoResultsMessage(container);
+    return;
+  }
+  try {
+    const pokemon = await fetchPokemonByName(match);
+    displaySearchedPokemon(pokemon, container);
+  } catch (err) {
+    showSearchError(container, err.message);
+  }
+}
