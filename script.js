@@ -51,7 +51,7 @@ let searchResults = [];
 let isSearchActive = false;
 
 
-/* //FUNC: Start Function*/
+/* //FUNC: Help Function Start Function*/
 async function loadInitialPokemon() {
   offset = 0;
   await loadPokemonBatch();
@@ -150,7 +150,7 @@ function showNextPokemon() {
   }
 }
 
-/* //FUNC: showPokemonOverlay(pokemon)*/
+/* //FUNC: Help Function showPokemonOverlay(pokemon)*/
 function showPokemonOverlay(pokemon) {
   const overlay = document.getElementById('pokemon-overlay');
   const content = document.getElementById('overlay-content');
@@ -161,12 +161,12 @@ function showPokemonOverlay(pokemon) {
   overlay.classList.remove('hidden');
 }
 
-/* //FUNC: helpfunction for Searching the Index*/
+/* //FUNC: Help Function for Searching the Index*/
 function getPokemonIndex(name) {
   return loadedPokemon.findIndex(p => p.name === name);
 }
 
-/* //FUNC: generate Template Overlay HTML*/
+/* //FUNC: Help Function generate Template Overlay HTML*/
 function generatePokemonOverlayHTML(pokemon) {
   const types = pokemon.types.map(t => t.type.name);
   const typeNames = types.join(', ');
@@ -186,7 +186,7 @@ function generatePokemonOverlayHTML(pokemon) {
   `;
 }
 
-/* //FUNC: Type and ID generate Template */
+/* //FUNC: Help Function Type and ID generate Template */
 function generateTypeIdSection(pokemon, typeNames, color) {
   return `
     <div class="pokemonTypeId">
@@ -204,7 +204,7 @@ function generateTypeIdSection(pokemon, typeNames, color) {
   `;
 }
 
-/* //FUNC: Image Template */
+/* //FUNC: Help Function Image Template */
 function generateImageSection(pokemon) {
   return `
     <div class="pokemonPicture">
@@ -213,7 +213,7 @@ function generateImageSection(pokemon) {
   `;
 }
 
-/* //FUNC: Size Template */
+/* //FUNC: Help Function Size Template */
 function generateSizeSection(pokemon) {
   return `
     <div class="pokemonType size box-shadow-bottom">
@@ -228,7 +228,7 @@ function roundToOneDecimal(value) {
   return Math.round(value * 10) / 10;
 }
 
-/* //FUNC: Stats Template */
+/* //FUNC: Help Function Stats Template */
 function generateStatsSection(stats) {
   return `
     <div class="pokemon-stats box-shadow-bottom">
@@ -242,7 +242,7 @@ function generateStatsSection(stats) {
   `;
 }
 
-/*//FUNC: Navigation Template */
+/*//FUNC: Help Function Navigation Template */
 function generateNavigationButtons() {
   return `
     <div class="nav-buttons">
@@ -252,19 +252,54 @@ function generateNavigationButtons() {
   `;
 }
 
-/* //FUNC: searchPokemon() Function */
+/* //FUNC: Help Function searchPokemon() Function */
 async function searchPokemon() {
   const input = getSearchInput();
   const container = document.getElementById('pokemon-card');
   if (!isValidSearchInput(input)) {
-    resetSearchResults(container);
-    await loadPokemonBatch();
-    return;}
-  const matches = findMatchingPokemonNames(input);
+    await resetAndLoadBatch(container);
+    return;
+  }
+  const matches = findMatchingNames(input);
   if (matches.length === 0) {
-    showNoResultsMessage(container);
-    return;}
-  container.innerHTML = ''; // Clear previous results
+    showNoResults(container);
+    return;
+  }
+  await fetchAndRenderMatches(matches, container);
+}
+
+/* //FUNC: Help Function returned the Search Input*/
+function getSearchInput() {
+  return document.getElementById('pokemonName').value.trim().toLowerCase();
+}
+
+/* //FUNC: Help Function Validation SearchInput */
+function isValidSearchInput(input) {
+  return input.length >= 3;
+}
+
+/* //FUNC: Help Function reset and loadingbatch */
+async function resetAndLoadBatch(container) {
+  container.innerHTML = '';
+  offset = 0;
+  isSearchActive = false;
+  searchResults = [];
+  await loadPokemonBatch();
+}
+
+/* //FUNC: Help Function find Matching the Pokemon Names */
+function findMatchingNames(input) {
+  return allPokemonNames.filter(name => name.startsWith(input));
+}
+
+/* //FUNC: Help Function show the results */
+function showNoResults(container) {
+  container.innerHTML = `<p style="color:red;">No Pokémon found</p>`;
+}
+
+/* //FUNC: Help Function fetch Render Matches */
+async function fetchAndRenderMatches(matches, container) {
+  container.innerHTML = '';
   searchResults = [];
   isSearchActive = true;
   for (const name of matches) {
