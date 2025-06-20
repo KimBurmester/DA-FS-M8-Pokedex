@@ -41,11 +41,15 @@ const emojiMap = {
   dragon: '🐉',
 };
 
+/* //VAR: Global Variables */
 let offset = 0;
 const limit = 20;
 let loadedPokemon = [];
 let allPokemonNames = [];
 let currentOverlayIndex = 0;
+let searchResults = [];
+let isSearchActive = false;
+
 
 /* //FUNC: Start Function*/
 async function loadInitialPokemon() {
@@ -130,17 +134,19 @@ function closeOverlay(event) {
 
 /* //FUNC: Help Function showPreviousPokemon() */
 function showPreviousPokemon() {
+  const activeList = isSearchActive ? searchResults : loadedPokemon;
   if (currentOverlayIndex > 0) {
     currentOverlayIndex--;
-    showPokemonOverlay(loadedPokemon[currentOverlayIndex]);
+    showPokemonOverlay(activeList[currentOverlayIndex]);
   }
 }
 
 /* //FUNC: Help Function showNextPokemon() */
 function showNextPokemon() {
-  if (currentOverlayIndex < loadedPokemon.length - 1) {
+  const activeList = isSearchActive ? searchResults : loadedPokemon;
+  if (currentOverlayIndex < activeList.length - 1) {
     currentOverlayIndex++;
-    showPokemonOverlay(loadedPokemon[currentOverlayIndex]);
+    showPokemonOverlay(activeList[currentOverlayIndex]);
   }
 }
 
@@ -148,7 +154,8 @@ function showNextPokemon() {
 function showPokemonOverlay(pokemon) {
   const overlay = document.getElementById('pokemon-overlay');
   const content = document.getElementById('overlay-content');
-  currentOverlayIndex = getPokemonIndex(pokemon.name);
+  const activeList = isSearchActive ? searchResults : loadedPokemon;
+  currentOverlayIndex = activeList.findIndex(p => p.name === pokemon.name);
   const html = generatePokemonOverlayHTML(pokemon);
   content.innerHTML = html;
   overlay.classList.remove('hidden');
@@ -258,10 +265,13 @@ async function searchPokemon() {
     showNoResultsMessage(container);
     return;}
   container.innerHTML = ''; // Clear previous results
+  searchResults = [];
+  isSearchActive = true;
   for (const name of matches) {
     try {
       const pokemon = await fetchPokemonByName(name);
       displaySearchedPokemon(pokemon, container);
+      searchResults.push(pokemon);
     } catch (err) {
       console.warn(`Fehler beim Laden von ${name}: ${err.message}`);
     }
@@ -299,7 +309,6 @@ async function fetchPokemonByName(name) {
 
 /* //FUNC: Help Function displaySearchedPokemon(pokemon, container)*/
 function displaySearchedPokemon(pokemon, container) {
-  // container.innerHTML = '';
   const types = pokemon.types.map(t => t.type.name);
   const color1 = typeColors[types[0]] || '#F0F0F0';
   const color2 = types[1] ? typeColors[types[1]] : color1;
