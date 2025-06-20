@@ -24,6 +24,3 @@ Ein interaktiver Pokédex im Stil der klassischen Pokémon-Welt – vollständig
 - **Vanilla JavaScript (ES6+)**
 - [🌐 PokéAPI](https://pokeapi.co/) als Datenquelle
 
-## 📁 Projektstruktur
-
-```plaintext

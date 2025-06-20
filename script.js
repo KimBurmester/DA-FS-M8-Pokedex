@@ -331,7 +331,6 @@ function resetSearchResults(container) {
 
 /* //FUNC: Help Function findMatchingPokemonName */
 function findMatchingPokemonNames(input) {
-  // return allPokemonNames.find(name => name.startsWith(input)); for one Pokemon
   return allPokemonNames.filter(name => name.startsWith(input)); //for more Pokemon
 }
 
