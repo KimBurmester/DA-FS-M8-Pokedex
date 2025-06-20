@@ -69,7 +69,7 @@ async function loadMorePokemon() {
   button.style.opacity = '0.6';
   overlay.classList.remove('hidden');
   await loadPokemonBatch();
-  await new Promise(resolve => setTimeout(resolve, 800));
+  await new Promise(resolve => setTimeout(resolve, 600));
   overlay.classList.add('hidden');
   button.style.pointerEvents = 'auto';
   button.style.opacity = '1';
@@ -272,7 +272,7 @@ function getSearchInput() {
   return document.getElementById('pokemonName').value.trim().toLowerCase();
 }
 
-/* //FUNC: Help function isValidSearchInput */
+/* //FUNC: Help function isValidSearchInput - More as 3 Letters for result */
 function isValidSearchInput(input) {
   return input.length >= 3;
 }
