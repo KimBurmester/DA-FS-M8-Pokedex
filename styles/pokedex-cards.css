@@ -147,6 +147,18 @@
   justify-content: space-between;
 }
 
+.size{
+  display: flex;
+  justify-content: space-between;
+  padding: 27px;
+  margin-bottom: 15px;
+  background-color: rgba(112, 147, 167, 0.25);
+}
+
+.pokemonSize{
+
+}
+
 /* Nav Buttons im Overlay*/
 .nav-buttons {
   display: flex;

@@ -169,6 +169,7 @@ function generatePokemonOverlayHTML(pokemon) {
       ${generateTypeIdSection(pokemon, typeNames, color1)}
       ${generateImageSection(pokemon)}
     </div>
+    ${generateSizeSection(pokemon)}
     ${generateStatsSection(stats)}
     ${generateNavigationButtons()}
   `;
@@ -187,7 +188,7 @@ function generateTypeIdSection(pokemon, typeNames, color) {
         <div class="pokemonType box-shadow-bottom" style="background-color: ${color}; padding: 4px 8px; border-radius: 6px; color: #fff;">
           ${typeNames}
         </div>
-      </div>
+      </div>          
     </div>
   `;
 }
@@ -199,6 +200,21 @@ function generateImageSection(pokemon) {
       <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
     </div>
   `;
+}
+
+/* //FUNC: Size Template */
+function generateSizeSection(pokemon) {
+  return `
+    <div class="pokemonType size box-shadow-bottom">
+      <div class="pokemonSize"><span>Size: </span><span>${roundToOneDecimal(pokemon.height * 0.1)} m</span></div>
+      <div class="pokemonWeight"><span>Weight: </span><span>${roundToOneDecimal(pokemon.weight * 0.1)} kg</span></div>
+    </div>
+  `;
+}
+
+/* //FUNC: Help Function for right Size and Weight */
+function roundToOneDecimal(value) {
+  return Math.round(value * 10) / 10;
 }
 
 /* //FUNC: Stats Template */
