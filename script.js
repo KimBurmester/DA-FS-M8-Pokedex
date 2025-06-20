@@ -252,18 +252,19 @@ async function searchPokemon() {
   if (!isValidSearchInput(input)) {
     resetSearchResults(container);
     await loadPokemonBatch();
-    return;
-  }
-  const match = findMatchingPokemonName(input);
-  if (!match) {
+    return;}
+  const matches = findMatchingPokemonNames(input);
+  if (matches.length === 0) {
     showNoResultsMessage(container);
-    return;
-  }
-  try {
-    const pokemon = await fetchPokemonByName(match);
-    displaySearchedPokemon(pokemon, container);
-  } catch (err) {
-    showSearchError(container, err.message);
+    return;}
+  container.innerHTML = ''; // Clear previous results
+  for (const name of matches) {
+    try {
+      const pokemon = await fetchPokemonByName(name);
+      displaySearchedPokemon(pokemon, container);
+    } catch (err) {
+      console.warn(`Fehler beim Laden von ${name}: ${err.message}`);
+    }
   }
 }
 
@@ -284,7 +285,7 @@ function resetSearchResults(container) {
 }
 
 /* //FUNC: Help Function findMatchingPokemonName */
-function findMatchingPokemonName(input) {
+function findMatchingPokemonNames(input) {
   // return allPokemonNames.find(name => name.startsWith(input)); for one Pokemon
   return allPokemonNames.filter(name => name.startsWith(input)); //for more Pokemon
 }
@@ -298,7 +299,7 @@ async function fetchPokemonByName(name) {
 
 /* //FUNC: Help Function displaySearchedPokemon(pokemon, container)*/
 function displaySearchedPokemon(pokemon, container) {
-  container.innerHTML = '';
+  // container.innerHTML = '';
   const types = pokemon.types.map(t => t.type.name);
   const color1 = typeColors[types[0]] || '#F0F0F0';
   const color2 = types[1] ? typeColors[types[1]] : color1;
