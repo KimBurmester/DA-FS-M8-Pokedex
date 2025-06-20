@@ -47,17 +47,20 @@ let loadedPokemon = [];
 let allPokemonNames = [];
 let currentOverlayIndex = 0;
 
+/* //FUNC: Start Function*/
 async function loadInitialPokemon() {
   offset = 0;
   await loadPokemonBatch();
 }
 
+/* //FUNC: Help Function to load the first 20 Pokemons */
 async function preloadPokemonNames() {
   const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');
   const data = await res.json();
   allPokemonNames = data.results.map(p => p.name);
 }
 
+/* //FUNC: Help Function to load more Pokemons - Hide Button*/
 async function loadMorePokemon() {
   const button = document.getElementById('load-more-btn');
   const overlay = document.getElementById('loading-overlay');
@@ -114,6 +117,7 @@ function renderPokemonCard(pokemon, container) {
   container.appendChild(div);
 }
 
+/* //FUNC: Help Function for Loading all PokemonNames and first Pokemons for the Screen */
 window.onload = async () => {
   await preloadPokemonNames();
   await loadInitialPokemon();
