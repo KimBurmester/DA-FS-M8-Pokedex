@@ -368,4 +368,3 @@ function showNoResultsMessage(container) {
 function showSearchError(container, message) {
   container.innerHTML = `<p style="color:red;">${message}</p>`;
 }
-
