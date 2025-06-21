@@ -48,9 +48,19 @@
     margin: 0 auto;
 }
 
-.main-container{
+.main-container {
     height: calc(100vh - 160px);
     overflow-y: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.main-wrapper {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer{
