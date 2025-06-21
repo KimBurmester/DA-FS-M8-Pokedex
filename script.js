@@ -389,3 +389,14 @@ function showNoResultsMessage(container) {
 function showSearchError(container, message) {
   container.innerHTML = `<p style="color:red;">${message}</p>`;
 }
+
+/* //FUNC: Help Function to reset the Search */
+async function resetToInitial() {
+  const container = document.getElementById('pokemon-card');
+  container.innerHTML = '';
+  offset = 0;
+  searchResults = [];
+  loadedPokemon = [];
+  isSearchActive = false;
+  await loadPokemonBatch();
+}

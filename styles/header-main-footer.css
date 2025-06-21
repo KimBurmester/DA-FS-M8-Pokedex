@@ -19,11 +19,25 @@
     height: auto;
 }
 
+.header-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .header-search input{
     width: 200px;
     height: 25px;
     border-radius: 8px;
     border: none;
+}
+
+.rotate-button {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.5s ease;
 }
 
 .main{
