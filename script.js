@@ -327,6 +327,8 @@ function isValidSearchInput(input) {
 function resetSearchResults(container) {
   container.innerHTML = '';
   offset = 0;
+  isSearchActive = false;
+  searchResults = [];
 }
 
 /* //FUNC: Help Function findMatchingPokemonName */
