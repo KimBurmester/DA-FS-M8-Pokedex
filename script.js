@@ -66,9 +66,9 @@ async function preloadPokemonNames() {
 
 /* //FUNC: Help Function to load more Pokemons - Hide Button*/
 async function loadMorePokemon() {
+  if (isSearchActive) return; // Nicht laden, wenn Suchmodus aktiv
   const button = document.getElementById('load-more-btn');
   const overlay = document.getElementById('loading-overlay');
-  document.getElementById('pokemonName').innerHTML = '';
   button.style.pointerEvents = 'none';
   button.style.opacity = '0.6';
   overlay.classList.remove('hidden');
@@ -81,18 +81,21 @@ async function loadMorePokemon() {
 
 /* //FUNC: Help Function loadPokemonBatch() */
 async function loadPokemonBatch() {
-    if (isSearchActive) {
-    console.log("Suche aktiv – keine weiteren Pokémon laden.");
-    return;
-  }
   const container = document.getElementById('pokemon-card');
   const pokemonList = await fetchPokemonList(limit, offset);
   for (const pokemon of pokemonList) {
+    if (isPokemonAlreadyLoaded(pokemon.name)) continue;
     const pokeData = await fetchPokemonDetails(pokemon.url);
     renderPokemonCard(pokeData, container);
     loadedPokemon.push(pokeData);
   }
   offset += limit;
+  console.log(loadedPokemon.length)
+}
+
+/* //FUNC: Help Function Prove of duplicates */
+function isPokemonAlreadyLoaded(name) {
+  return loadedPokemon.some(p => p.name === name) || searchResults.some(p => p.name === name);
 }
 
 /* //FUNC: Help Function fetchPokemonList(limit, offset) */
@@ -260,7 +263,7 @@ function generateNavigationButtons() {
 async function searchPokemon() {
   const input = getSearchInput();
   const container = document.getElementById('pokemon-card');
-  if (!isValidSearchInput(input)) {
+  if (input.length < 3) {
     await resetAndLoadBatch(container);
     return;
   }
@@ -269,7 +272,22 @@ async function searchPokemon() {
     showNoResults(container);
     return;
   }
-  await fetchAndRenderMatches(matches, container);
+  container.innerHTML = '';
+  searchResults = [];
+  isSearchActive = true;
+  for (const name of matches) {
+    try {
+      const pokemon = await fetchPokemonByName(name);
+      if (!searchResults.some(p => p.name === pokemon.name)) {
+        displaySearchedPokemon(pokemon, container);
+        searchResults.push(pokemon);
+      }
+    } catch (err) {
+      console.warn(`Fehler beim Laden von ${name}: ${err.message}`);
+    }
+  }
+  document.getElementById('pokemonName').value = '';
+  isSearchActive = false;
 }
 
 /* //FUNC: Help Function returned the Search Input*/
@@ -277,18 +295,15 @@ function getSearchInput() {
   return document.getElementById('pokemonName').value.trim().toLowerCase();
 }
 
-/* //FUNC: Help Function Validation SearchInput */
-function isValidSearchInput(input) {
-  return input.length >= 3;
-}
-
 /* //FUNC: Help Function reset and loadingbatch */
 async function resetAndLoadBatch(container) {
   container.innerHTML = '';
-  offset = 0;
+  offset = loadedPokemon.length;
   isSearchActive = false;
   searchResults = [];
-  await loadPokemonBatch();
+  for (const pokemon of loadedPokemon.slice(0, limit)) {
+    renderPokemonCard(pokemon, container);
+  }
 }
 
 /* //FUNC: Help Function find Matching the Pokemon Names */
@@ -331,8 +346,9 @@ function isValidSearchInput(input) {
 function resetSearchResults(container) {
   container.innerHTML = '';
   offset = 0;
-  isSearchActive = false;
   searchResults = [];
+  loadedPokemon = [];
+  isSearchActive = false;
 }
 
 /* //FUNC: Help Function findMatchingPokemonName */
