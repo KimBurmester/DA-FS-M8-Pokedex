@@ -81,6 +81,10 @@ async function loadMorePokemon() {
 
 /* //FUNC: Help Function loadPokemonBatch() */
 async function loadPokemonBatch() {
+    if (isSearchActive) {
+    console.log("Suche aktiv – keine weiteren Pokémon laden.");
+    return;
+  }
   const container = document.getElementById('pokemon-card');
   const pokemonList = await fetchPokemonList(limit, offset);
   for (const pokemon of pokemonList) {
