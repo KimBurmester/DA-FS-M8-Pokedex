@@ -9,6 +9,7 @@
 
 .header-container{
     display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 80px;
     margin: 0;
@@ -55,12 +56,12 @@
     justify-content: center;
 }
 
-.main-wrapper {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+.content-wrapper {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .footer{
