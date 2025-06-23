@@ -27,14 +27,13 @@
   --type-flying: rgb(168, 207, 255);
 }
 
-html, body{
-    height: 100%;
-    margin: 0;
-}
-
-body{
-    display: flex;
-    flex-direction: column;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .f-16-b{

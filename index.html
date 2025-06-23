@@ -9,7 +9,7 @@
 </head>
 <body onload="loadInitialPokemon()">
     <header class="header-container box-shadow-bottom bg-light">
-        <div class="content-wrapper">
+        <div class="header-content-wrapper">
             <div class="header">
                 <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
                 <div class="header-text f-32-b fc-white">Pokédex</div>
@@ -22,18 +22,16 @@
     </header>
 
 <main class="main-container bg-main">
-  <div class="content-wrapper">
-    <div class="main">
+    <div class="main-content-wrapper">
         <div id="pokemon-card" class="pokedex-card"></div>
     </div>
     <div id="loading-overlay" class="loading-overlay hidden">
         <div class="loader"></div>
     </div>
-  </div>
 </main>
 
     <footer class="footer-container box-shadow-top bg-dark fc-white">
-        <div class="content-wrapper">
+        <div class="footer-content-wrapper">
             <div class="footer">
                 <div class="footer-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
                 <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
