@@ -11,43 +11,19 @@
 
 #pokemon-card {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  max-width: 1440px;
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.pokemon-info p{
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
+  gap: 16px;
 }
 
 .pokedex-card img{
-  height: auto;
-  width: auto;
+  height: 100px;
+  width: 100px;
 }
 
-.pokemon-info{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: 80px; /* //NOTE: geändert*/
-    height: 80px;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-
-.pokemon-info h3{
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
+.pokedex-card h3{
+  margin: 10px 0 0 0;
+  font-size: 16px;
 }
 
 .pokemon-info:hover {

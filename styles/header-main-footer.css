@@ -39,6 +39,20 @@ header, footer{
     padding: 20px;
 }
 
+.footer-content-wrapper{
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-container{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+
 /* Header Logo and Search*/
 .header-logo img{
     width: 50px;

@@ -8,11 +8,11 @@
     <title>Pokédex</title>
 </head>
 <body onload="loadInitialPokemon()">
-    <header class="header-container box-shadow-bottom bg-light">
-        <div class="header-content-wrapper">
-            <div class="header">
+    <header class="bg-light">
+        <div class="header-container">
+            <div class="header-text f-32-b fc-white">Pokédex</div>
+            <div class="header-content">
                 <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-                <div class="header-text f-32-b fc-white">Pokédex</div>
                     <div class="header-search">
                         <button id="reset-btn" title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
                         <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()">
@@ -23,23 +23,32 @@
 
 <main class="main-container bg-main">
     <div class="main-content-wrapper">
-        <div id="pokemon-card" class="pokedex-card"></div>
+        <div id="pokemon-card"></div>
     </div>
     <div id="loading-overlay" class="loading-overlay hidden">
         <div class="loader"></div>
     </div>
 </main>
 
-    <footer class="footer-container box-shadow-top bg-dark fc-white">
-        <div class="footer-content-wrapper">
-            <div class="footer">
-                <div class="footer-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-                <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
-                <div class="footer-copyright f-16-b">&copy; 2025 Kim Pascal Burmester</div>
+
+    <footer class="box-shadow-top bg-dark fc-white">
+        <div class="header-container">
+            <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
+
+            <div class="header-content">
+                <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
+                    <div class="header-search">
+                        <button id="reset-btn" title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
+                        <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()">
+                    </div>
+                </div>
             </div>
-        </div>
     </footer>
 
+
+
+
+    <!--  -->
     <div id="pokemon-overlay" class="overlay hidden" onclick="closeOverlay(event)">
   <div class="overlay-content" id="overlay-content" onclick="event.stopPropagation()">
     <span class="close-btn" onclick="closeOverlay()">✖</span>
