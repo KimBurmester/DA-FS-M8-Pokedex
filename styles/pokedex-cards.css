@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+  padding: 10px;
 }
 
 .pokedex-card img{
@@ -19,7 +20,7 @@
 .pokemon-info{
   border-radius: 8px;
   width: 180px;
-  height: 250px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

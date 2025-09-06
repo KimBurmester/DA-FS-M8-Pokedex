@@ -4,6 +4,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 120px;
 }
 
 .header-container {
@@ -23,17 +24,15 @@ footer {
   margin: 0 auto;
 }
 
-
 .header-content {
   max-width: 1440px;
   width: 100%;  
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-
 }
 
-.main-container {
+/* .main-container {
   flex: 1;
   overflow-y: auto;
   display: flex;
@@ -45,11 +44,24 @@ footer {
   max-width: 1440px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  padding: 20px;
+} */
+
+.main-container {
+  flex: 1 1 auto;
+  min-height: 0;             
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  /* padding: 10px; */
+}
+
+.main-content-wrapper {
+  max-width: 1440px;
+  width: 100%;
 }
 
 .footer-content-wrapper {
@@ -63,6 +75,7 @@ footer {
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 /* Header Logo and Search*/
@@ -102,13 +115,15 @@ footer {
 
 .footer-loading {
   border-radius: 8px;
-  padding: 15px;
+  padding: 5px;
   background-color: rgb(11, 102, 135);
   border: 1px solid black;
   cursor: pointer;
-  width: 200px;
+  width: 180px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 5px;
 }
 
 .loading-overlay {
