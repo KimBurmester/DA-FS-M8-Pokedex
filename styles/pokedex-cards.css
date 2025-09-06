@@ -1,15 +1,5 @@
-.pokedex-card{
-  width: 180px;
-  height: 200px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-#pokemon-card {
+#pokemon-card{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -24,6 +14,16 @@
 .pokedex-card h3{
   margin: 10px 0 0 0;
   font-size: 16px;
+}
+
+.pokemon-info{
+  border-radius: 8px;
+  width: 180px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .pokemon-info:hover {

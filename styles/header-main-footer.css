@@ -10,24 +10,27 @@ footer {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
+  max-width: 1440px;
+  width: 100%;  
+  margin: 0 auto;
 }
 
-.header-text {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 32px;
-  font-weight: bold;
-  color: white;
+.header-text{
+  display: flex;
+  justify-content: center;
+  max-width: 1440px;
+  width: 100%;  
+  margin: 0 auto;
 }
+
 
 .header-content {
   max-width: 1440px;
-  width: 100%;
+  width: 100%;  
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+
 }
 
 .main-container {
@@ -57,7 +60,7 @@ footer {
 }
 
 .footer-container {
-  height: 80px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
 }
@@ -103,6 +106,9 @@ footer {
   background-color: rgb(11, 102, 135);
   border: 1px solid black;
   cursor: pointer;
+  width: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 .loading-overlay {

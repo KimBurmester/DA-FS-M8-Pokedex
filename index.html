@@ -24,6 +24,7 @@
   </div>
 </header>
 
+
 <main class="main-container bg-main">
     <div class="main-content-wrapper">
         <div id="pokemon-card"></div>
@@ -32,11 +33,11 @@
         <div class="loader"></div>
     </div>
 </main>
-
-
     <footer class="box-shadow-top bg-dark fc-white">
         <div class="header-container">
-            <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
+            <div class="footer-container">
+                <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
+            </div>
 
             <div class="header-content">
                 <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
@@ -47,10 +48,6 @@
                 </div>
             </div>
     </footer>
-
-
-
-
     <!--  -->
     <div id="pokemon-overlay" class="overlay hidden" onclick="closeOverlay(event)">
   <div class="overlay-content" id="overlay-content" onclick="event.stopPropagation()">
