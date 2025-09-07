@@ -179,7 +179,7 @@ function roundToOneDecimal(value) {
 }
 
 /* //FUNC: Help Function searchPokemon() Function */
-async function searchPokemon() {
+/* async function searchPokemon() {
   const input = getSearchInput();
   const container = document.getElementById('pokemon-card');
   if (input.length < 3) {
@@ -208,6 +208,35 @@ async function searchPokemon() {
   document.getElementById('pokemonName').value = '';
   document.getElementById('pokemonName2').value = '';
   isSearchActive = false;
+} */
+
+async function searchPokemon() {
+  const input = getSearchInput();
+  const container = document.getElementById('pokemon-card');
+  if (input.length < 3) { await resetAndLoadBatch(container); return; }
+  const matches = findMatchingNames(input);
+  if (matches.length === 0) { showNoResults(container); return; }
+  container.innerHTML = '';
+  searchResults = [];
+  isSearchActive = true;
+  await renderSearchMatches(matches, container);
+  document.getElementById('pokemonName').value = '';
+  document.getElementById('pokemonName2').value = '';
+  isSearchActive = false;
+}
+
+async function renderSearchMatches(matches, container){
+  for (const name of matches) {
+    try {
+      const pokemon = await fetchPokemonByName(name);
+      if (!searchResults.some(p => p.name === pokemon.name)) {
+        displaySearchedPokemon(pokemon, container);
+        searchResults.push(pokemon);
+      }
+    } catch (err) {
+      console.warn(`Fehler beim Laden von ${name}: ${err.message}`);
+    }
+  }
 }
 
 /* //FUNC: Help Function returned the Search Input*/
@@ -257,11 +286,6 @@ async function fetchAndRenderMatches(matches, container) {
     }
   }
 }
-
-/* //FUNC: Help function getSearchInput */
-/* function getSearchInput() {
-  return document.getElementById('pokemonName').value.trim().toLowerCase();
-} */
 
 /* //FUNC: Help function isValidSearchInput - More as 3 Letters for result */
 function isValidSearchInput(input) {
