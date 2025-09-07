@@ -179,36 +179,6 @@ function roundToOneDecimal(value) {
 }
 
 /* //FUNC: Help Function searchPokemon() Function */
-/* async function searchPokemon() {
-  const input = getSearchInput();
-  const container = document.getElementById('pokemon-card');
-  if (input.length < 3) {
-    await resetAndLoadBatch(container);
-    return;
-  }
-  const matches = findMatchingNames(input);
-  if (matches.length === 0) {
-    showNoResults(container);
-    return;
-  }
-  container.innerHTML = '';
-  searchResults = [];
-  isSearchActive = true;
-  for (const name of matches) {
-    try {
-      const pokemon = await fetchPokemonByName(name);
-      if (!searchResults.some(p => p.name === pokemon.name)) {
-        displaySearchedPokemon(pokemon, container);
-        searchResults.push(pokemon);
-      }
-    } catch (err) {
-      console.warn(`Fehler beim Laden von ${name}: ${err.message}`);
-    }
-  }
-  document.getElementById('pokemonName').value = '';
-  document.getElementById('pokemonName2').value = '';
-  isSearchActive = false;
-} */
 
 async function searchPokemon() {
   const input = getSearchInput();
