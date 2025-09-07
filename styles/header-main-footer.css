@@ -115,7 +115,7 @@ footer {
 
 .footer-loading {
   border-radius: 8px;
-  padding: 5px;
+  padding: 10px;
   background-color: rgb(11, 102, 135);
   border: 1px solid black;
   cursor: pointer;
@@ -123,7 +123,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .loading-overlay {
