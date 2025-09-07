@@ -17,7 +17,7 @@
         <a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a>
       </div>
       <div class="header-search">
-        <button id="reset-btn" title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
+        <button  title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
         <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()">
       </div>
     </div>
@@ -34,20 +34,23 @@
 </main>
 
     <footer class="box-shadow-top bg-dark fc-white">
-        <div class="header-container">
-            <div class="footer-container">
+        <div class="footer-container">
+            <div class="footer-content-1">
                 <div class="footer-loading bg-hover" id="load-more-btn" onclick="loadMorePokemon()">Mehr Pokémon laden</div>
             </div>
-
-            <div class="header-content">
+            <div class="footer-content-2">
                 <div class="header-logo"><a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a></div>
-                    <div class="header-search">
-                        <button id="reset-btn" title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
-                        <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()">
+                    <div class="footer-search">
+                      <!-- //FIX: the search function have a bug.-->
+                        <button title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
+                        <input type="text" id="pokemonName2" placeholder="Name in english" oninput="searchPokemon()">
                     </div>
                 </div>
             </div>
     </footer>
+
+
+
     <!--  -->
     <div id="pokemon-overlay" class="overlay hidden" onclick="closeOverlay(event)">
   <div class="overlay-content" id="overlay-content" onclick="event.stopPropagation()">

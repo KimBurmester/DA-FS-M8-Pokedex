@@ -206,13 +206,20 @@ async function searchPokemon() {
     }
   }
   document.getElementById('pokemonName').value = '';
+  document.getElementById('pokemonName2').value = '';
   isSearchActive = false;
 }
 
 /* //FUNC: Help Function returned the Search Input*/
 function getSearchInput() {
-  return document.getElementById('pokemonName').value.trim().toLowerCase();
+  const h = document.getElementById('pokemonName');
+  const f = document.getElementById('pokemonName2');
+
+  const inputHeader = h ? h.value.trim().toLowerCase() : ''; 
+  const inputFooter = f ? f.value.trim().toLowerCase() : ''; 
+  return inputHeader || inputFooter;
 }
+
 
 /* //FUNC: Help Function reset and loadingbatch */
 async function resetAndLoadBatch(container) {
@@ -252,9 +259,9 @@ async function fetchAndRenderMatches(matches, container) {
 }
 
 /* //FUNC: Help function getSearchInput */
-function getSearchInput() {
+/* function getSearchInput() {
   return document.getElementById('pokemonName').value.trim().toLowerCase();
-}
+} */
 
 /* //FUNC: Help function isValidSearchInput - More as 3 Letters for result */
 function isValidSearchInput(input) {
