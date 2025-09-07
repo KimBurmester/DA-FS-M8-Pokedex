@@ -179,59 +179,11 @@ footer {
 }
 
 @media (max-width: 1500px) {
-  .header {
+  .header-container {
+    width: 90%;
   }
-  .main {
-  }
-  .footer {
-  }
-}
-@media (max-width: 1000px) {
-  .header {
-  }
-  .main {
-  }
-  .footer {
-  }
-  .footer-copyright {
-    display: none;
+  .footer-container {
+    width: 90%;
   }
 }
 
-@media (max-width: 650px) {
-  .header {
-  }
-  .header-text {
-    display: none;
-  }
-  .main {
-  }
-  .footer {
-  }
-  .footer-copyright {
-    display: none;
-  }
-}
-@media (max-width: 450px) {
-  .header {
-  }
-  .main {
-  }
-  .footer {
-  }
-  .footer-copyright {
-    display: none;
-  }
-}
-
-@media (max-width: 440px) {
-  .header {
-  }
-  .main {
-  }
-  .footer {
-  }
-  .footer-copyright {
-    display: none;
-  }
-}
