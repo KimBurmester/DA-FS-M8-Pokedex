@@ -139,21 +139,35 @@ function closeOverlay(event) {
 }
 
 /* //FUNC: Help Function showPreviousPokemon() */
+// function showPreviousPokemon() {
+//   const activeList = isSearchActive ? searchResults : loadedPokemon;
+//   if (currentOverlayIndex > 0) {
+//     currentOverlayIndex--;
+//     showPokemonOverlay(activeList[currentOverlayIndex]);
+//   }
+// }
 function showPreviousPokemon() {
-  const activeList = isSearchActive ? searchResults : loadedPokemon;
-  if (currentOverlayIndex > 0) {
-    currentOverlayIndex--;
-    showPokemonOverlay(activeList[currentOverlayIndex]);
-  }
+  const list = getActiveList();
+  if (currentOverlayIndex <= 0) return; // Guard
+  currentOverlayIndex--;
+  showPokemonOverlay(list[currentOverlayIndex]);
+  updateNavButtonsDisabled();
 }
 
 /* //FUNC: Help Function showNextPokemon() */
+// function showNextPokemon() {
+//   const activeList = isSearchActive ? searchResults : loadedPokemon;
+//   if (currentOverlayIndex < activeList.length - 1) {
+//     currentOverlayIndex++;
+//     showPokemonOverlay(activeList[currentOverlayIndex]);
+//   }
+// }
 function showNextPokemon() {
-  const activeList = isSearchActive ? searchResults : loadedPokemon;
-  if (currentOverlayIndex < activeList.length - 1) {
-    currentOverlayIndex++;
-    showPokemonOverlay(activeList[currentOverlayIndex]);
-  }
+  const list = getActiveList();
+  if (currentOverlayIndex >= list.length - 1) return; // Guard
+  currentOverlayIndex++;
+  showPokemonOverlay(list[currentOverlayIndex]);
+  updateNavButtonsDisabled();
 }
 
 /* //FUNC: Help Function showPokemonOverlay(pokemon)*/
@@ -178,7 +192,6 @@ function roundToOneDecimal(value) {
 }
 
 /* //FUNC: Help Function searchPokemon() Function */
-
 async function searchPokemon() {
   const input = getSearchInput();
   const container = document.getElementById('pokemon-card');
@@ -191,7 +204,6 @@ async function searchPokemon() {
   await renderSearchMatches(matches, container);
   document.getElementById('pokemonName').value = '';
   document.getElementById('pokemonName2').value = '';
-  isSearchActive = false;
 }
 
 async function renderSearchMatches(matches, container){
@@ -318,4 +330,28 @@ async function resetToInitial() {
   loadedPokemon = [];
   isSearchActive = false;
   await loadPokemonBatch();
+}
+
+/* //FUNC:  Help Function to watch for activSearch */
+function getActiveList() {
+  return isSearchActive ? searchResults : loadedPokemon;
+}
+
+/* //FUNC: Help Function to updatedNavButtonsDisabled */
+function updateNavButtonsDisabled() {
+  const list = getActiveList();
+  const atStart = currentOverlayIndex <= 0;
+  const atEnd   = currentOverlayIndex >= list.length - 1;
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  if (prev) {
+    prev.disabled = atStart;
+    prev.setAttribute('aria-disabled', String(atStart));
+    prev.tabIndex = atStart ? -1 : 0;
+  }
+  if (next) {
+    next.disabled = atEnd;
+    next.setAttribute('aria-disabled', String(atEnd));
+    next.tabIndex = atEnd ? -1 : 0;
+  }
 }

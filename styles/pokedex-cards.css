@@ -130,6 +130,10 @@
   width: 100px;
   height: auto;
 }
+.nav-buttons button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
 
 .pokemon-stats {
   display: flex;

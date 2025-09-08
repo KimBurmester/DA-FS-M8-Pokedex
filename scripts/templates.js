@@ -65,10 +65,15 @@ function generateStatsSection(stats) {
 }
 
 function generateNavigationButtons() {
+  const list = getActiveList();
+  const atStart = currentOverlayIndex <= 0;
+  const atEnd   = currentOverlayIndex >= list.length - 1;
+
   return `
     <div class="nav-buttons">
-      <button onclick="showPreviousPokemon()">←</button>
-      <button onclick="showNextPokemon()">→</button>
+      <button id="prev-btn" onclick="showPreviousPokemon()" ${atStart ? 'disabled' : ''} aria-disabled="${atStart}">←</button>
+      <button id="next-btn" onclick="showNextPokemon()"   ${atEnd ? 'disabled' : ''} aria-disabled="${atEnd}">→</button>
     </div>
   `;
 }
+updateNavButtonsDisabled();
