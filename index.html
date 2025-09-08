@@ -16,9 +16,11 @@
       <div class="header-logo">
         <a href="./index.html"><img src="./img/logo/logo-pokedex.png" alt=""></a>
       </div>
-      <div class="header-search">
+      <div class="header-search"  data-tooltip="Suche mit Enter bestätigen">
         <button  title="Suche zurücksetzen" onclick="resetToInitial()" class="rotate-button">🔄</button>
-        <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()">
+        <div class="tooltip" data-tooltip="Suche mit Enter bestätigen">
+        <input type="text" id="pokemonName" placeholder="Name in english" oninput="searchPokemon()" aria-describedby="hint-search">
+      </div>
       </div>
     </div>
   </div>
