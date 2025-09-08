@@ -283,20 +283,19 @@ async function fetchPokemonByName(name) {
 }
 
 /* //FUNC: Help Function displaySearchedPokemon(pokemon, container)*/
-function displaySearchedPokemon(pokemon, container) {
-  const types = pokemon.types.map(t => t.type.name);
+function buildPokemonCard(pokemon) {
+  const types  = pokemon.types.map(t => t.type.name);
   const color1 = typeColors[types[0]] || '#F0F0F0';
   const color2 = types[1] ? typeColors[types[1]] : color1;
   const div = document.createElement('div');
   div.className = 'pokemon-info box-shadow-bottom';
   div.style.background = `linear-gradient(5deg, ${color1}, ${color2})`;
-  div.innerHTML = `
-    <h3>${pokemon.name.toUpperCase()}</h3>
-    <p><strong>ID:</strong> ${pokemon.id}</p>
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-    <p><strong>Typen:</strong> ${types.join(', ')}</p>`;
+  div.innerHTML = pokemonCardTemplate(pokemon);
   div.onclick = () => showPokemonOverlay(pokemon);
-  container.appendChild(div);
+  return div;
+}
+function displaySearchedPokemon(pokemon, container) {
+  container.appendChild(buildPokemonCard(pokemon));
 }
 
 /* //FUNC: Help showNoResultsMessage(container) */

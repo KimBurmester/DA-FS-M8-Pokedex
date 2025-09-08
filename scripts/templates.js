@@ -76,3 +76,13 @@ function generateNavigationButtons() {
     </div>
   `;
 }
+
+function pokemonCardTemplate(pokemon) {
+  const types = pokemon.types.map(t => t.type.name);
+  return `
+    <h3>${pokemon.name.toUpperCase()}</h3>
+    <p><strong>ID:</strong> ${pokemon.id}</p>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <p><strong>Typen:</strong> ${types.join(', ')}</p>
+  `;
+}
