@@ -90,7 +90,6 @@ async function loadPokemonBatch() {
     loadedPokemon.push(pokeData);
   }
   offset += limit;
-  console.log(loadedPokemon.length)
 }
 
 /* //FUNC: Help Function Prove of duplicates */
