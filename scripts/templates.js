@@ -76,4 +76,3 @@ function generateNavigationButtons() {
     </div>
   `;
 }
-updateNavButtonsDisabled();

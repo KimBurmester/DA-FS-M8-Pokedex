@@ -49,6 +49,8 @@ let allPokemonNames = [];
 let currentOverlayIndex = 0;
 let searchResults = [];
 let isSearchActive = false;
+let _clearTimer = null;
+const CLEAR_DELAY = 3000;
 
 
 /* //FUNC: Help Function Start Function*/
@@ -139,13 +141,6 @@ function closeOverlay(event) {
 }
 
 /* //FUNC: Help Function showPreviousPokemon() */
-// function showPreviousPokemon() {
-//   const activeList = isSearchActive ? searchResults : loadedPokemon;
-//   if (currentOverlayIndex > 0) {
-//     currentOverlayIndex--;
-//     showPokemonOverlay(activeList[currentOverlayIndex]);
-//   }
-// }
 function showPreviousPokemon() {
   const list = getActiveList();
   if (currentOverlayIndex <= 0) return; // Guard
@@ -155,13 +150,6 @@ function showPreviousPokemon() {
 }
 
 /* //FUNC: Help Function showNextPokemon() */
-// function showNextPokemon() {
-//   const activeList = isSearchActive ? searchResults : loadedPokemon;
-//   if (currentOverlayIndex < activeList.length - 1) {
-//     currentOverlayIndex++;
-//     showPokemonOverlay(activeList[currentOverlayIndex]);
-//   }
-// }
 function showNextPokemon() {
   const list = getActiveList();
   if (currentOverlayIndex >= list.length - 1) return; // Guard
@@ -193,16 +181,21 @@ function roundToOneDecimal(value) {
 
 /* //FUNC: Help Function searchPokemon() Function */
 async function searchPokemon() {
+  clearTimeout(_clearTimer);
   const input = getSearchInput();
   const container = document.getElementById('pokemon-card');
-  if (input.length < 3) { await resetAndLoadBatch(container); return; }
+  if (input.length < 3) {
+    isSearchActive = false;
+    await resetAndLoadBatch(container); return;}
   const matches = findMatchingNames(input);
-  if (matches.length === 0) { showNoResults(container); return; }
+  if (matches.length === 0) {
+    isSearchActive = true;
+    showNoResults(container); return;}
   container.innerHTML = '';
   searchResults = [];
   isSearchActive = true;
   await renderSearchMatches(matches, container);
-  document.getElementById('pokemonName').value = '';
+  scheduleClearSearchInput();
 }
 
 async function renderSearchMatches(matches, container){
@@ -349,4 +342,15 @@ function updateNavButtonsDisabled() {
     next.setAttribute('aria-disabled', String(atEnd));
     next.tabIndex = atEnd ? -1 : 0;
   }
+}
+
+/* //FUNC: Help Function for the search results */
+function scheduleClearSearchInput(delay = CLEAR_DELAY) {
+  clearTimeout(_clearTimer);
+  _clearTimer = setTimeout(() => {
+    const h = document.getElementById('pokemonName');
+    if (h) h.value = '';
+    // Optional: Fokus wegnehmen
+    if (document.activeElement === h) h.blur();
+  }, delay);
 }
