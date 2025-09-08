@@ -203,7 +203,6 @@ async function searchPokemon() {
   isSearchActive = true;
   await renderSearchMatches(matches, container);
   document.getElementById('pokemonName').value = '';
-  document.getElementById('pokemonName2').value = '';
 }
 
 async function renderSearchMatches(matches, container){
@@ -223,13 +222,9 @@ async function renderSearchMatches(matches, container){
 /* //FUNC: Help Function returned the Search Input*/
 function getSearchInput() {
   const h = document.getElementById('pokemonName');
-  const f = document.getElementById('pokemonName2');
-
   const inputHeader = h ? h.value.trim().toLowerCase() : ''; 
-  const inputFooter = f ? f.value.trim().toLowerCase() : ''; 
-  return inputHeader || inputFooter;
+  return inputHeader;
 }
-
 
 /* //FUNC: Help Function reset and loadingbatch */
 async function resetAndLoadBatch(container) {
